@@ -1,0 +1,13 @@
+﻿@model List<fq540TenK.Models.ProjectAssignee>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <h3>Currently Assigned:</h3>
+        <ul class="assignee-list">
+            @foreach (var assignee in Model)
+            {
+                <li id="@assignee.id"><span class="glyphicon glyphicon-minus-sign"></span> @assignee.first_name @assignee.last_name</li>
+            }
+        </ul>
+    </div>
+</div>

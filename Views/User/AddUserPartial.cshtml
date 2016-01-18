@@ -1,0 +1,22 @@
+﻿@model List<fq540TenK.Models.User>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <h3>Batch Assign Employees:</h3>
+        <input id="employee-search" name="search" placeholder="Start typing here..." type="text" data-list=".employee-list">
+        <ul class="employee-list">
+            @foreach (var user in Model)
+            {
+                <li id="@user.id"><span class="glyphicon glyphicon-plus-sign"></span> @user.first_name @user.last_name</li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-12">
+        <div class="well hidden" id="employee-search-bucket" style="margin-top: 10px;">
+            <p>Once you have selected all the neccesary employees from the search box above, please hit submit below:</p>
+            <ul class="employee-bucket-list">
+            </ul>
+            <button type="button" class="btn btn-primary" style="margin-top: 10px;">Add Users</button>
+        </div>
+    </div>
+</div>

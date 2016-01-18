@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Details";
+}
+@model fq540TenK.Models.Project
+<div class="row">
+    <h2>Project Details</h2>
+    <hr />
+    <div class="col-md-4">
+        <img alt="@Model.name Project Image" src="@Model.thumbnail" class="img-thumbnail" />
+    </div>
+    <div class="col-md-8">
+        <h4>Project Details:</h4>
+        <table class="table table-border">
+            <tr>
+                <th>Project Name:</th>
+                <td>@Model.name</td>
+            </tr>
+            <tr>
+                <th>Project ID:</th>
+                <td>@Model.id</td>
+            </tr>
+            <tr>
+                <th>Starts At:</th>
+                <td>@Model.starts_at</td>
+            </tr>
+            <tr>
+                <th>Ends At:</th>
+                <td>@Model.ends_at</td>
+            </tr>
+            <tr>
+                <th>Last Modified:</th>
+                <td>@Model.updated_at</td>
+            </tr>
+        </table>
+        @if (!Model.children.empty)
+            {
+            <h4>Phases:</h4>
+                <div class="list-group">
+                    @foreach (var phase in Model.children.data)
+                    {
+                        <a href="#" class="list-group-item">@phase.name</a>
+                    }
+                </div>
+        }
+    </div>
+</div>
+@{ Html.RenderAction("CurrentlyAssigned", "User", new { projectId = Model.id }); }
+@{ Html.RenderAction("AddUserPartial", "User"); }
+   
