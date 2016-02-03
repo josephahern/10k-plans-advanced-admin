@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Phase Details";
+}
+@model fq540TenK.Models.Project
+
+<div class="row">
+    <ol class="breadcrumb">
+        <li><a href="@Url.Content("~/project/")@Model.parent_id/">@Model.name</a></li>
+        <li class="active">@Model.phase_name - Phase Details</li>
+    </ol>
+    <hr />
+    <div class="col-md-12">
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>Phase Name:</th>
+                <td>@Model.phase_name</td>
+            </tr>
+            <tr>
+                <th>Phase ID:</th>
+                <td>@Model.id</td>
+            </tr>
+            <tr>
+                <th>Starts At:</th>
+                <td>@Model.starts_at.Date.ToString("MMMM dd, yyyy")</td>
+            </tr>
+            <tr>
+                <th>Ends At:</th>
+                <td>@Model.ends_at.Date.ToString("MMMM dd, yyyy")</td>
+            </tr>
+            <tr>
+                <th>Last Modified:</th>
+                <td>@Model.updated_at.Date.ToString("MMMM dd, yyyy")</td>
+            </tr>
+        </table>
+        @if (!Model.children.empty)
+        {
+            <h4>Phases:</h4>
+            <div class="list-group">
+                @foreach (var phase in Model.children.data)
+                {
+                    <a href="#" class="list-group-item">@phase.phase_name</a>
+                }
+            </div>
+        }
+    </div>
+</div>
+@{ Html.RenderAction("CurrentlyAssignedPartial", "User", new { projectId = Model.id }); }
+@{ Html.RenderAction("AddUserPartial", "User", new { projectId = Model.id }); }
+
+
+
+
+
+
+
+
+
+
