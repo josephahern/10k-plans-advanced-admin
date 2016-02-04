@@ -245,6 +245,9 @@
     <Content Include="includes\css\bootstrap.css" />
     <Content Include="includes\css\bootstrap.min.css" />
     <Content Include="includes\css\style.css" />
+    <Content Include="includes\img\table-asc.gif" />
+    <Content Include="includes\img\table-header.gif" />
+    <Content Include="includes\img\table-desc.gif" />
     <Content Include="includes\js\bootstrap-datepicker.min.js" />
     <Content Include="includes\js\bootstrap.min.js" />
     <Content Include="includes\js\jquery.hideseek.min.js" />
@@ -263,6 +266,7 @@
     <Content Include="Scripts\jquery-2.2.0.js" />
     <Content Include="Scripts\jquery-2.2.0.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="includes\js\jquery.tablesorter.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -289,7 +293,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="includes\img\" />
     <Folder Include="Views\AjaxOnlyFilter\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>

@@ -2,27 +2,38 @@
     ViewBag.Title = "Project Index";
 }
 @model List<fq540TenK.Models.Project>
-<h4>I'm soooo glad you're here. Please select a project below or use the quick-select in the navigation to jump right into a specific phase.</h4>
+<h4>Project List:</h4>
 <hr />
 <div class="row">
-    @foreach (var project in Model)
-    {
-        <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    @if (project.thumbnail == null)
-                    {
-                        <img src="http://placehold.it/500x300&amp;text=@project.name" alt="@project.name Image" style="width:100%">
-                    }
-                    else {
-                        <img alt="@project.name Project Image" src="@project.thumbnail" class="img-thumbnail" style="width:100%" />
-                    }
-                </div>
-                <div class="panel-footer">
-                    <span class="project-listing-client">@project.client</span>
-                    <span class="project-listing-name">@project.name</span>
-                </div>
-            </div>
-        </div>
-    }
+    <div class="col-md-12">
+        <table class="table table-bordered table-hover tablesorter" id="project-list">
+            <thead>
+                <tr>
+                    <th>Project Name</th>
+                    <th>Client Name</th>
+                    <th># of Phases</th>
+                    <th>Last Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var project in Model)
+                {
+                    <tr id="@project.id">
+                        <td>@project.name</td>
+                        <td>
+                            @if (project.client != null){
+                                @project.client
+                            }
+                            else {
+                                @:(No Client Specified)
+                            }
+                        </td>
+                        <td>@project.phase_count</td>
+                        <td>@project.updated_at.Date.ToString("MMMM dd, yyyy")</td>
+                    </tr>
+                }
+            </tbody>    
+        </table>
+    </div>
 </div>
+

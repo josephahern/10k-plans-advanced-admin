@@ -115,3 +115,26 @@ employee-bucket-list {
     color: white;
     display:none;
 }
+
+#project-list tr {
+    cursor: pointer;
+}
+
+th.headerSortUp { 
+    background-image: url(../img/table-asc.gif) !important; 
+    background-color: #f8f8f8; 
+} 
+
+th.headerSortDown { 
+    background-image: url(../img/table-desc.gif) !important; 
+    background-color: #f8f8f8; 
+} 
+
+th.header { 
+    background-image: url(../img/table-header.gif); 
+    cursor: pointer; 
+    font-weight: bold; 
+    background-repeat: no-repeat; 
+    background-position: center left; 
+    padding-left: 25px !important; 
+} 

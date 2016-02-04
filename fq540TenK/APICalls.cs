@@ -24,7 +24,7 @@ namespace fq540TenK
             var client = new RestClient(baseUrl);
             var request = new RestRequest("projects", Method.GET);
             request.AddParameter("auth", authToken);
-            request.AddParameter("fields", "children");
+            request.AddParameter("fields", "children,phase_count");
             request.AddParameter("per_page", "200");
             List<Project> projects = client.Execute<ProjectListRoot>(request).Data.data;
             return projects;

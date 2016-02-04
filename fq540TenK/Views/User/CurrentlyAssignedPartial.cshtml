@@ -32,6 +32,7 @@ else {
                                     <th>Allocation Amount</th>
                                     <th>Start Time</th>
                                     <th>End Time</th>
+                                    <td rowspan="1"></td>
                                 </tr>
                                 @foreach (var assignment in assignee.assignments.data)
                         {
@@ -74,6 +75,7 @@ else {
                                             }
                                             <td>@assignment.starts_at.Date.ToString("MMMM dd, yyyy")</td>
                                             <td>@assignment.ends_at.Date.ToString("MMMM dd, yyyy")</td>
+                                            <td style="text-align: center;"><span class="glyphicon glyphicon-remove remove-assignment" id="@assignment.id"></span></td>
                                         </tr>
                                     }
                                 }
@@ -113,26 +115,18 @@ else {
                                     </div>
                                 </div>
                                 <div class="col-md-6" style="margin-top:15px;">
-                                    <label for="edit-start-time">
-                                        Start Time
+                                    <label for="edit-start-time">Start Time</label>
                                         <div class="input-group date">
-                                            <input type="text" class="form-control edit-start-time" name="edit-start-time" data-provide="datepicker" data-date-format="yyyy/mm/dd">
-                                            <div class="input-group-addon">
-                                                <span class="glyphicon glyphicon-th"></span>
-                                            </div>
+                                            <input type="text" class="form-control edit-start-time" name="edit-start-time">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                         </div>
-                                    </label>
                                 </div>
                                 <div class="col-md-6" style="margin-top:15px;">
-                                    <label for="edit-end-time">
-                                        End Time
+                                    <label for="edit-end-time">End Time</label>
                                         <div class="input-group date">
-                                            <input type="text" class="form-control edit-end-time" name="edit-end-time" data-provide="datepicker" data-date-format="yyyy/mm/dd">
-                                            <div class="input-group-addon">
-                                                <span class="glyphicon glyphicon-th"></span>
-                                            </div>
+                                            <input type="text" class="form-control edit-end-time" name="edit-end-time">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                         </div>
-                                    </label>
                                 </div>
                             </div>
                         </div>

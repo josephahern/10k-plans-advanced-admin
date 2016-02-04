@@ -31,7 +31,8 @@ function toggleToEmployeeBucket(employeeId, employeeName) {
         $(".tb-assigned-modal-list #" + employeeId).remove();
         $(".employee-list").append("<li id=\"" + employeeId + "\"><span class=\"glyphicon glyphicon-plus-sign\" aria-hidden=\"true\"></span> " + employeeName + "</li>");
     } else {
-        $(".employee-bucket-list, .tb-assigned-modal-list").append("<li id=\"" + employeeId + "\">" + employeeName + "</li>");
+        $(".employee-bucket-list").append("<li id=\"" + employeeId + "\"><span class=\"glyphicon glyphicon-minus-sign\" aria-hidden=\"true\"></span>" + employeeName + "</li>");
+        $(".tb-assigned-modal-list").append("<li id=\"" + employeeId + "\">" + employeeName + "</li>");
         $(".employee-list #" + employeeId).remove();
     }
 
@@ -46,7 +47,6 @@ function toggleToEmployeeBucket(employeeId, employeeName) {
 $(document).ready(function () {
 
     var message = getParameterByName('message');
-    console.log(message);
     if (message == "add-success") {
         alertMessage("You have successfully added new resources to this project.");
         console.log("Add Success");
@@ -56,9 +56,26 @@ $(document).ready(function () {
         console.log("Edit Success");
     }
 
+    $("#project-list tbody tr").click(function () {
+        window.location.href = "/project/" + $(this).attr("id");
+    });
+
+    $("#project-list").tablesorter({
+        headers: {
+            2: { sorter: false },
+            3: { sorter: false }
+        }
+    });
+
+    $('.input-group.date').datepicker({
+        format: "mm/dd/yyyy",
+        orientation: "bottom left"
+    });
+
     $('#employee-search').hideseek({
         hidden_mode: true
     });
+
     $(".panel").hover(function () { // Mouse over
         $(this).siblings().stop().fadeTo(300, 0.6);
         $(this).parent().siblings().stop().fadeTo(300, 0.3);
@@ -123,11 +140,11 @@ function toggleToAssignedBucket(assignmentId, data) {
     if ($(".assigned-modal-list #" + assignmentId).length) {
         $(".assigned-modal-list #" + assignmentId).remove();
     } else {
-        $(".assigned-modal-list").append("<li id=\"" + assignmentId + "\">Assignment ID: " + assignmentId + "</li>");
+        $(".assigned-modal-list").append("<li id=\"a-" + assignmentId + "\">Assignment ID: " + assignmentId + "</li>");
         for (var i in data) {
-            $('#' + assignmentId).attr("data-" + i, data[i]);
+            $('#a-' + assignmentId).attr("data-" + i, data[i]);
         }
-        $('.assigned-modal-list #' + assignmentId).prepend("<b>" + $('.assigned-modal-list #' + assignmentId).attr("data-name") + "</b> | ");
+        $('.assigned-modal-list #a-' + assignmentId).prepend("<b>" + $('.assigned-modal-list #a-' + assignmentId).attr("data-name") + "</b> | ");
     }
 }
 

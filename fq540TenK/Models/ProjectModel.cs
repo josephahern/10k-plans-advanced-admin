@@ -24,6 +24,7 @@ namespace fq540TenK.Models
         public string name { get; set; }
         public object parent_id { get; set; }
         public object phase_name { get; set; }
+        public int phase_count { get; set; }
         public string project_code { get; set; }
         public string secureurl { get; set; }
         public string secureurl_expiration { get; set; }
