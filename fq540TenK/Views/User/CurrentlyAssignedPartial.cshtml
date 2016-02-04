@@ -75,7 +75,7 @@ else {
                                             }
                                             <td>@assignment.starts_at.Date.ToString("MMMM dd, yyyy")</td>
                                             <td>@assignment.ends_at.Date.ToString("MMMM dd, yyyy")</td>
-                                            <td style="text-align: center;"><span class="glyphicon glyphicon-remove remove-assignment" id="@assignment.id"></span></td>
+                                            <td style="text-align: center;"><span class="glyphicon glyphicon-remove remove-assignment" data-assignment-id="@assignment.id"></span></td>
                                         </tr>
                                     }
                                 }
@@ -87,7 +87,7 @@ else {
                     <span>Batch Edit: <button class="btn btn-disabled batchEditButton" data-toggle="modal" data-target="#batch-edit-modal" disabled>None Selected</button> | <a href="#" class="selectAllAssigned">Select All</a> / <a href="#" class="selectNoneAssigned">Select None</a></span>
                 </div>
             </div>
-            <!-- Batch Add Modal -->
+            <!-- Batch Edit Modal -->
             <div class="modal fade" id="batch-edit-modal" tabindex="-1" role="dialog" aria-labelledby="batch-edit-modal-label">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -101,7 +101,7 @@ else {
                                     <h5>Resources To Be Edited: </h5>
                                     <ul class="assigned-modal-list"></ul>
                                     <hr />
-                                    <h5>Allocation Type & Amount:</h5>
+                                    <h5><b>Allocation Type & Amount:</b></h5>
                                 </div>
                                 <div id="allocationModeSelect">
                                     <div class="col-md-4">

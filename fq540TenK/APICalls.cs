@@ -15,8 +15,9 @@ namespace fq540TenK
 {
     public class APICalls
     {
-        private const string baseUrl = "https://vnext-api.10000ft.com/api/v1/";
-        private const string authToken = "R1RNeDRwWTQ1UGFxbCtlVWFsMnlkRUtnYllyaGU1Z0l1dkJEL0UwSnh6NTFKNklTTHpxTGFsdEdDNC9TCnFDVm43Z29yTVNKdThtYzYxSjBnbHg1TzdINmpGN0VxZXBlSEovc2VOK05acUpMaGtUNDBvOHB3dzFZYwpMN0xNM21idwo";
+
+        private static string baseUrl = System.Configuration.ConfigurationManager.AppSettings["TenKPlansBaseURL"];
+        private static string authToken = System.Configuration.ConfigurationManager.AppSettings["TenKPlansAPIKey"];
 
         #region PROJECTS
         public static List<Project> GetAllProjects()
