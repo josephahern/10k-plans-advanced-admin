@@ -18,20 +18,17 @@
 
     </div>
     <div class="col-md-8">
+        <h4>Project Details:</h4>
         <table class="table table-border">
             <tr>
                 <th>Project Name:</th>
                 <td>@Model.name</td>
-            </tr>
-            <tr>
                 <th>Project ID:</th>
                 <td>@Model.id</td>
             </tr>
             <tr>
                 <th>Starts At:</th>
                 <td>@Model.starts_at.Date.ToString("MMMM dd, yyyy")</td>
-            </tr>
-            <tr>
                 <th>Ends At:</th>
                 <td>@Model.ends_at.Date.ToString("MMMM dd, yyyy")</td>
             </tr>

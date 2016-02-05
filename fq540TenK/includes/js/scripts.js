@@ -79,14 +79,14 @@
 
     // Takes employeeId and employeeName
     function toggleToEmployeeBucket(userId, userFullName) {
-        if ($('.employee-bucket-list li[data-id="' + userId + '"]').length) {
-            $('.employee-bucket-list li[data-id="' + userId + '"]').remove();
-            $('.tb-assigned-modal-list li[data-id="' + userId + '"]').remove();
+        if ($('.employee-bucket-list li[data-user-id="' + userId + '"]').length) {
+            $('.employee-bucket-list li[data-user-id="' + userId + '"]').remove();
+            $('.tb-assigned-modal-list li[data-user-id="' + userId + '"]').remove();
             $(".employee-list").append("<li data-user-id=\"" + userId + "\"><span class=\"glyphicon glyphicon-plus-sign\" aria-hidden=\"true\"></span> " + userFullName + "</li>");
         } else {
             $(".employee-bucket-list").append("<li data-user-id=\"" + userId + "\"><span class=\"glyphicon glyphicon-minus-sign\" aria-hidden=\"true\"></span>" + userFullName + "</li>");
             $(".tb-assigned-modal-list").append("<li data-user-id=\"" + userId + "\">" + userFullName + "</li>");
-            $('.employee-list li[data-id="' + userId + '"]').remove();
+            $('.employee-list li[data-user-id="' + userId + '"]').remove();
         }
 
         if ($(".employee-bucket-list").length > 0) {

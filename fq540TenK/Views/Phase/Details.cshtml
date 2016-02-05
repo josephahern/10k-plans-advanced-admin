@@ -10,26 +10,19 @@
     </ol>
     <hr />
     <div class="col-md-12">
-        <table class="table table-striped table-bordered">
+        <h4>Phase Details:</h4>
+        <table class="table table-bordered">
             <tr>
                 <th>Phase Name:</th>
                 <td>@Model.phase_name</td>
-            </tr>
-            <tr>
-                <th>Phase ID:</th>
-                <td>@Model.id</td>
-            </tr>
-            <tr>
                 <th>Starts At:</th>
                 <td>@Model.starts_at.Date.ToString("MMMM dd, yyyy")</td>
             </tr>
             <tr>
+                <th>Phase ID:</th>
+                <td>@Model.id</td>
                 <th>Ends At:</th>
                 <td>@Model.ends_at.Date.ToString("MMMM dd, yyyy")</td>
-            </tr>
-            <tr>
-                <th>Last Modified:</th>
-                <td>@Model.updated_at.Date.ToString("MMMM dd, yyyy")</td>
             </tr>
         </table>
         @if (!Model.children.empty)
