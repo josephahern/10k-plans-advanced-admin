@@ -7,47 +7,39 @@
         <li class="active">@Model.name - Project Details</li>
     </ol>
     <hr />
-    <div class="col-md-2">
-        @if (Model.thumbnail == null)
-        {
-            <img src="http://placehold.it/300x300&amp;text=@Model.name" alt="@Model.name Image" style="width:100%">
-        }
-        else {
-            <img alt="@Model.name Project Image" src="@Model.thumbnail" class="img-thumbnail" style="width:100%" />
-        }
-
-    </div>
-    <div class="col-md-8">
+    <div class="col-md-6">
         <h4>Project Details:</h4>
-        <table class="table table-border">
+        <table class="table table-bordered table-striped">
             <tr>
                 <th>Project Name:</th>
                 <td>@Model.name</td>
+            </tr>
+            <tr>
                 <th>Project ID:</th>
                 <td>@Model.id</td>
             </tr>
             <tr>
                 <th>Starts At:</th>
                 <td>@Model.starts_at.Date.ToString("MMMM dd, yyyy")</td>
+            </tr>
+            <tr>
                 <th>Ends At:</th>
                 <td>@Model.ends_at.Date.ToString("MMMM dd, yyyy")</td>
             </tr>
-            <tr>
-                <th>Last Modified:</th>
-                <td>@Model.updated_at.Date.ToString("MMMM dd, yyyy")</td>
-            </tr>
         </table>
-        @if (!Model.children.empty)
+        </div>
+        <div class="col-md-6">
+            @if (!Model.children.empty)
             {
-            <h4>Phases:</h4>
+                <h4>Phases:</h4>
                 <div class="list-group">
                     @foreach (var phase in Model.children.data)
                     {
                         <a href="@Url.Content("~/project/")@Model.id/phase/@phase.id/" class="list-group-item">@phase.phase_name</a>
                     }
                 </div>
-        }
-    </div>
+            }
+        </div>
 </div>
 @{ Html.RenderAction("CurrentlyAssignedPartial", "User", new { projectId = Model.id }); }
 @{ Html.RenderAction("AddUserPartial", "User", new { projectId = Model.id }); }

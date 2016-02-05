@@ -120,6 +120,15 @@ employee-bucket-list {
     cursor: pointer;
 }
 
+.table-bordered th {
+    text-align:center;
+}
+
+.table-bordered th {
+    background-color: #ededed;
+    border: 1px solid #ddd;
+}
+
 th.headerSortUp { 
     background-image: url(../img/table-asc.gif) !important; 
     background-color: #f8f8f8; 
@@ -138,3 +147,15 @@ th.header {
     background-position: center left; 
     padding-left: 25px !important; 
 } 
+
+.delete-resource-x {
+    text-align: center;
+    vertical-align: middle;
+    color: red;
+}
+
+.delete-resource-x:hover {
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}

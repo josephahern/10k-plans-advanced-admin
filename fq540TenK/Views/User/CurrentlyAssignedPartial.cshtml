@@ -26,13 +26,13 @@ else {
                         {
                             <table class="table table-bordered table-condensed">
                                 <tr>
-                                    <td rowspan="1"></td>
-                                    <th>Assignment ID</th>
-                                    <th>Allocation Type</th>
-                                    <th>Allocation Amount</th>
-                                    <th>Start Time</th>
-                                    <th>End Time</th>
-                                    <td rowspan="1"></td>
+                                    <td rowspan="1" style="border-left: 1px solid white; border-top:1px solid white;"></td>
+                                    <th>ID</th>
+                                    <th>Mode/Type</th>
+                                    <th>Amount</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                    <td rowspan="1" style="border-right:1px solid white; border-top: 1px solid white;"></td>
                                 </tr>
                                 @foreach (var assignment in assignee.assignments.data)
                         {
@@ -60,22 +60,24 @@ else {
                                                        data-percent="@assignment.percent" />
                                             </th>
                                             <td>@assignment.id</td>
-                                            <td>@assignment.allocation_mode</td>
                                             @if (assignment.allocation_mode == "fixed")
                                             {
-                                                <td>@assignment.fixed_hours</td>
+                                                <td>Fixed</td>
+                                                <td>@assignment.fixed_hours hrs</td>
                                             }
                                             else if (assignment.allocation_mode == "percent")
                                             {
-                                                <td>@assignment.percent</td>
+                                                <td>Percent</td>
+                                                <td>@assignment.percent %</td>
                                             }
                                             else
                                             {
-                                                <td>@assignment.hours_per_day</td>
+                                                <td>Hours Per Day</td>
+                                                <td>@assignment.hours_per_day hrs/day</td>
                                             }
                                             <td>@assignment.starts_at.Date.ToString("MMMM dd, yyyy")</td>
                                             <td>@assignment.ends_at.Date.ToString("MMMM dd, yyyy")</td>
-                                            <td style="text-align: center;"><span class="glyphicon glyphicon-remove remove-assignment" data-assignment-id="@assignment.id"></span></td>
+                                            <td class="delete-resource-x"><span class="glyphicon glyphicon-remove remove-assignment" style="margin:4px;" data-assignment-id="@assignment.id"></span></td>
                                         </tr>
                                     }
                                 }
