@@ -15,11 +15,15 @@ namespace fq540TenK
 {
     public class APICalls
     {
+        #region AUTHENTICATION
 
         private static string baseUrl = System.Configuration.ConfigurationManager.AppSettings["TenKPlansBaseURL"];
         private static string authToken = System.Configuration.ConfigurationManager.AppSettings["TenKPlansAPIKey"];
 
+        #endregion
+
         #region PROJECTS
+
         public static List<Project> GetAllProjects()
         {
             var client = new RestClient(baseUrl);
@@ -45,6 +49,7 @@ namespace fq540TenK
         #endregion
 
         #region USERS
+
         public static List<User> GetAllUsers()
         {
             var client = new RestClient(baseUrl);

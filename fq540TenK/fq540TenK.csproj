@@ -209,7 +209,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="APICalls.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhaseController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -228,12 +227,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="includes\css\bootstrap-datepicker.min.css" />
     <Content Include="includes\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -252,28 +246,8 @@
     <Content Include="includes\js\bootstrap.min.js" />
     <Content Include="includes\js\jquery.hideseek.min.js" />
     <Content Include="includes\js\scripts.js" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="Scripts\jquery-2.2.0.intellisense.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-2.2.0.js" />
-    <Content Include="Scripts\jquery-2.2.0.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="includes\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="includes\js\jquery.tablesorter.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
-    <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -285,9 +259,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
@@ -307,19 +278,13 @@
     <Content Include="includes\css\bootstrap-theme.min.css.map" />
     <Content Include="includes\css\bootstrap.css.map" />
     <Content Include="includes\css\bootstrap.min.css.map" />
-    <None Include="Project_Readme.html" />
     <Content Include="Views\Phase\Details.cshtml" />
     <Content Include="Views\Project\Index.cshtml" />
-    <Content Include="Views\Project\Add.cshtml" />
-    <Content Include="Views\Phase\Add.cshtml" />
-    <Content Include="Views\Phase\Edit.cshtml" />
-    <Content Include="Views\Project\Edit.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Project\Details.cshtml" />
     <Content Include="Views\User\AddUserPartial.cshtml" />
     <Content Include="Views\User\CurrentlyAssignedPartial.cshtml" />
     <Content Include="Views\Project\NavbarProjectSelectPartial.cshtml" />
-    <Content Include="Scripts\jquery-2.2.0.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

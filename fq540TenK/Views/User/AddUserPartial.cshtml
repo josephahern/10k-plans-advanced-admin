@@ -7,7 +7,7 @@
         <ul class="employee-list">
             @foreach (var user in Model)
             {
-                <li id="@user.id"><span class="glyphicon glyphicon-plus-sign"></span> @user.first_name @user.last_name</li>
+                <li data-user-id="@user.id"><span class="glyphicon glyphicon-plus-sign"></span> @user.first_name @user.last_name</li>
             }
         </ul>
     </div>
@@ -15,7 +15,7 @@
         <div class="well hidden" id="employee-search-bucket" style="margin-top: 10px;">
             <ul class="employee-bucket-list">
             </ul>
-            <button type="button" id="add-user-trigger"class="btn btn-primary" style="margin-top: 10px;">Add Resources</button>
+            <button type="button" id="add-user-trigger"class="btn btn-primary" style="margin-top: 10px;"><span class="glyphicon glyphicon-plus-sign"></span> Add Resources</button>
         </div>
     </div>
     <!-- Batch Add Modal -->
