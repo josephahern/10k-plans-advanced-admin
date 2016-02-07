@@ -1,7 +1,7 @@
-﻿@{
+﻿@model fq540TenK.Models.Project
+@{
     ViewBag.Title = "Project Details";
 }
-@model fq540TenK.Models.Project
 <div class="row">
     <ol class="breadcrumb">
         <li class="active">@Model.name - Project Details</li>
@@ -41,6 +41,6 @@
             }
         </div>
 </div>
-@{ Html.RenderAction("CurrentlyAssignedPartial", "User", new { projectId = Model.id }); }
-@{ Html.RenderAction("AddUserPartial", "User", new { projectId = Model.id }); }
+@{ Html.RenderAction("GetAssignmentsByProjectIdPartial", "Assignment", new { projectId = Model.id }); }
+@{ Html.RenderAction("AddAssignmentPartial", "Assignment", new { projectId = Model.id }); }
    

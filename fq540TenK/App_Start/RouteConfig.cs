@@ -30,13 +30,13 @@ namespace fq540TenK
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Project", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
                 name: "Site Index",
                 url: "",
-                defaults: new { controller = "Project", action = "Index"}
+                defaults: new { controller = "Home", action = "Index"}
             );
 
             routes.MapRoute(

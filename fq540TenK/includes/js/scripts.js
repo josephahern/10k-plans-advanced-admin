@@ -4,25 +4,6 @@
     // Basic site functionality and different library initializations
     //
 
-    // Query parameter for success notifications
-    var message = getParameterByName('message');
-    if (message == "add-success") {
-        alertMessage("You have successfully added new resources to this project.");
-    }
-    if (message == "edit-success") {
-        alertMessage("You have successfully edited existing resources of this project.");
-    }
-
-    function getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
-
     // Generates success messages
     function alertMessage(message) {
         $(".alertMessage").text(message);
@@ -34,7 +15,7 @@
     
     // Project Index page, clickable rows...
     $("#project-list tbody tr").click(function () {
-        window.location.href = "/project/" + $(this).attr("id");
+        window.location.href = "/project/" + $(this).attr("data-project-id");
     });
 
     // Date Picker Initialization
@@ -71,10 +52,9 @@
 
     // Click function for adding a Resource from "Batch Add Users" search result into 
     $('.employee-list, .employee-bucket-list').on('click', 'li', function () {
-        var employeeId = $(this).attr('id');
-        var employeeName = $(this).text();
-        console.log("Click function -" + employeeId + " " + employeeName);
-        toggleToEmployeeBucket(employeeId, employeeName);
+        var userId = $(this).attr('data-user-id');
+        var userFullName = $(this).text();
+        toggleToEmployeeBucket(userId, userFullName);
     });
 
     // Takes employeeId and employeeName
@@ -97,14 +77,13 @@
         }
     }
 
-    // Currently Assigned Partial
     $(".selectAllAssigned").click(function (e) {
         $('input:checkbox.currentlyAssigned').prop('checked', true);
-        $('.assigned-modal-list').empty();
+        $('.edit-assignment-modal-list').empty();
         $('input[type=checkbox]:checked').each(function () {
             var assignmentID = $(this).attr("data-id");
             var data = $(this).data();
-            toggleToAssignedBucket(assignmentID, data);
+            toggleToEditAssignmentList(assignmentID, data);
         });
         countAssignmentCheckbox();
         e.preventDefault();
@@ -112,24 +91,33 @@
 
     $(".selectNoneAssigned").click(function (e) {
         $('input:checkbox.currentlyAssigned').prop('checked', false);
-        $('.assigned-modal-list').empty();
+        $('.edit-assignment-modal-list').empty();
         countAssignmentCheckbox();
         e.preventDefault();
     });
+
     $("input:checkbox.currentlyAssigned").click(function (e) {
         var assignmentID = $(this).attr("data-id");
         var data = $(this).data();
-        toggleToAssignedBucket(assignmentID, data);
+        toggleToEditAssignmentList(assignmentID, data);
         countAssignmentCheckbox();
     });
 
-    //Batch Add Users Modal
-    $('input[name=allocationMode]').click(function () {
-        console.log("Allocation Mode Selected!");
-        var selectedValue = $('input[name=allocationMode]:checked').val();
-        $('#allocationModeSelect input[type=text]').attr('disabled', "disabled");
-        $("input[name=" + selectedValue + "]").removeAttr("disabled");
-    });
+    // When a checkbox is selected besides a resource, this action runs
+    function toggleToEditAssignmentList(assignmentId, data) {
+        if ($('.edit-assignment-modal-list li[data-id="' + assignmentId + '"]').length) {
+            $('.edit-assignment-modal-list li[data-id="' + assignmentId + '"]').remove();
+            buildEditAssignmentHiddenValue();
+        } else {
+            $(".edit-assignment-modal-list").append('<li data-id="' + assignmentId + '">Assignment ID: ' + assignmentId + '</li>');
+            for (var i in data) {
+                $('.edit-assignment-modal-list li[data-id="' + assignmentId + '"]').attr("data-" + i, data[i]);
+            }
+            // Prepends the name in the modal to allow the user a quick glance at what user's assignment is being edited.
+            $('.edit-assignment-modal-list li[data-id="' + assignmentId + '"]').prepend("<b>" + $('.edit-assignment-modal-list li[data-id="' + assignmentId + '"]').attr("data-name") + "</b> | ");
+        }
+        buildEditAssignmentHiddenValues();
+    }
 
     // The dynamic buttons that count selected boxes in the "Currently Assigned" partial
     function countAssignmentCheckbox() {
@@ -149,120 +137,63 @@
         }
     }
 
-    // Swaps from one ul,li to another
-    function toggleToAssignedBucket(assignmentId, data) {
-        if ($('.assigned-modal-list li[data-id="' + assignmentId + '"]').length) {
-            $('.assigned-modal-list li[data-id="' + assignmentId + '"]').remove();
-        } else {
-            $(".assigned-modal-list").append('<li data-id="'+ assignmentId +'">Assignment ID: ' + assignmentId + '</li>');
-            for (var i in data) {
-                $('.assigned-modal-list li[data-id="' + assignmentId + '"]').attr("data-" + i, data[i]);
-            }
-            $('.assigned-modal-list li[data-id="' + assignmentId + '"]').prepend("<b>" + $('.assigned-modal-list li[data-id="' + assignmentId + '"]').attr("data-name") + "</b> | ");
-        }
+    function buildEditAssignmentHiddenValues() {
+        var users = new Array();
+        var assignments = new Array();
+
+        $(".edit-assignment-modal-list li").each(function (index) {
+            users.push($(this).attr("data-user-id"));
+            assignments.push($this).attr("data-id");
+        });
+
+        $("#batch-edit-modal input[name='users']").val(users.join);
+        $("#batch-edit-modal input[name='assignments']").val(users.join);
     }
+
+    //Batch Edit Users Modal Allocation Mode Module
+    $("#edit-percent, #edit-hours-per-day, #edit-fixed").change(function () {
+        $("#edit-amount-percent, #edit-amount-hours-per-day, #edit-amount-fixed").val("").attr("readonly", true);
+        $("#edit-amount-percent, #edit-amount-hours-per-day, #edit-amount-fixed").prop("disabled", true);
+        if ($("#edit-percent").is(":checked")) {
+            $("#edit-amount-percent").removeAttr("readonly");
+            $("#edit-amount-percent").prop("disabled", false);
+            $("#edit-amount-percent").focus();
+        }
+        else if ($("#edit-hours-per-day").is(":checked")) {
+            $("#edit-amount-hours-per-day").removeAttr("readonly");
+            $("#edit-amount-hours-per-day").prop("disabled", false);
+            $("#edit-amount-hours-per-day").focus();
+        }
+        else if ($("#edit-fixed").is(":checked")) {
+            $("#edit-amount-fixed").removeAttr("readonly");
+            $("#edit-amount-fixed").prop("disabled", false);
+            $("#edit-amount-fixed").focus();
+        }
+    });
+
+    //Batch Add Users Modal Allocation Mode Module
+    $("#add-percent, #add-hours-per-day, #add-fixed").change(function () {
+        $("#add-amount-percent, #add-amount-hours-per-day, #add-amount-fixed").val("").attr("readonly", true);
+        $("#add-amount-percent, #add-amount-hours-per-day, #add-amount-fixed").prop("disabled", true);
+        if ($("#add-percent").is(":checked")) {
+            $("#add-amount-percent").removeAttr("readonly");
+            $("#add-amount-percent").prop("disabled", false);
+            $("#add-amount-percent").focus();
+        }
+        else if ($("#add-hours-per-day").is(":checked")) {
+            $("#add-amount-hours-per-day").removeAttr("readonly");
+            $("#add-amount-hours-per-day").prop("disabled", false);
+            $("#add-amount-hours-per-day").focus();
+        }
+        else if ($("#add-fixed").is(":checked")) {
+            $("#add-amount-fixed").removeAttr("readonly");
+            $("#add-amount-fixed").prop("disabled", false);
+            $("#add-amount-fixed").focus();
+        }
+    });
 
     // Batch Add User Modal Button
     $("#add-user-trigger").click(function () {
         $('#batch-add-modal').modal('show');
-    });
-
-    // Batch Add Modal - Commit Button Actions
-    $("#add-commit-submit").click(function () {
-        var users = [];
-
-        $('.tb-assigned-modal-list li').each(function () {
-            users.push($(this).attr('id'));
-        });
-    
-        var allocationMode = $('#batch-add-modal input[name=allocationMode]:checked').val();
-
-        if (allocationMode == "fixed") {
-            allocationAmount = $('#batch-add-modal input[name=fixed]').val();
-        } else if (allocationMode == "hours_per_day") {
-            allocationAmount = $('#batch-add-modal input[name=hours_per_day]').val();
-        } else {
-            allocationAmount = ($('#batch-add-modal input[name=percent]').val()) / 100;
-        }
-
-        var projectId = $('#batchAdd-projectId').text();
-        var startTime = $('.add-start-time').val();
-        var endTime = $('.add-end-time').val();
-
-        var data = {
-            users: users,
-            project_id: projectId,
-            allocation_mode: allocationMode,
-            allocation_amount: allocationAmount,
-            start_time: startTime,
-            end_time: endTime
-        }
-
-        console.log("Data being sent to controller: ");
-        console.log(data);
-
-        $.ajax({
-            url: '/User/AddUsersToProject',
-            type: 'POST',
-            data: JSON.stringify(data),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                $('#batch-add-modal').modal('hide');
-                console.log(data);
-                window.location = "?message=add-success";
-            }
-        });
-    });
-
-    // Batch Edit Modal - Commit Button Actions
-    $("#edit-commit-submit").click(function () {
-
-        var users = [];
-        var assignments = [];
-
-        $('.assigned-modal-list li').each(function () {
-            users.push($(this).attr('data-userid'));
-            assignments.push($(this).attr('data-id'));
-        });
-
-        var allocationMode = $('#batch-edit-modal input[name=allocationMode]:checked').val();
-
-        if (allocationMode == "fixed") {
-            allocationAmount = $('#batch-edit-modal input[name=fixed]').val();
-        } else if (allocationMode == "hours_per_day") {
-            allocationAmount = $('#batch-edit-modal input[name=hours_per_day]').val();
-        } else {
-            allocationAmount = ($('#batch-edit-modal input[name=percent]').val()) / 100;
-        }
-
-        var projectId = $('#batchAdd-projectId').text();
-        var startTime = $('.edit-start-time').val();
-        var endTime = $('.edit-end-time').val();
-
-        var data = {
-            users: users,
-            assignments: assignments,
-            allocation_mode: allocationMode,
-            allocation_amount: allocationAmount,
-            start_time: startTime,
-            end_time: endTime
-        }
-
-        console.log("Data being sent to controller: ");
-        console.log(data);
-
-        $.ajax({
-            url: '/User/EditUsersOnProject',
-            type: 'POST',
-            data: JSON.stringify(data),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                $('#batch-edit-modal').modal('hide');
-                console.log(data);
-                window.location = "?message=edit-success";
-            }
-        });
     });
 });

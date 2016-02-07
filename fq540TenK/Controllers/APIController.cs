@@ -7,13 +7,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using RestSharp;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using fq540TenK.Models;
-
+using System.Web.Mvc;
 
 namespace fq540TenK
 {
-    public class APICalls
+    public class APIController
     {
         #region AUTHENTICATION
 
@@ -35,10 +35,10 @@ namespace fq540TenK
             return projects;
         }
 
-        public static Project GetProjectById(string projectID)
+        public static Project GetProjectById(int projectID)
         {
             var client = new RestClient(baseUrl);
-            var request = new RestRequest("projects/"+projectID, Method.GET);
+            var request = new RestRequest("projects/"+ projectID.ToString(), Method.GET);
             request.AddParameter("auth", authToken);
             request.AddParameter("fields", "children");
             request.AddParameter("per_page", "200");
@@ -60,7 +60,11 @@ namespace fq540TenK
             return users;
         }
 
-        public static List<ProjectAssignee> GetCurrentlyAssigned(int projectID)
+        #endregion
+
+        #region ASSIGNMENTS
+
+        public static List<ProjectAssignee> GetAssignmentsByProjectId(int projectID)
         {
             var client = new RestClient(baseUrl);
             var request = new RestRequest("projects/" + projectID.ToString() + "/users", Method.GET);
@@ -71,38 +75,48 @@ namespace fq540TenK
             return assignees;
         }
 
-        public static void BatchAddUsers(string userId, string projectId, string allocationMode, string allocationAmount, DateTime startTime, DateTime endTime)
+        public static void AddAssignments(int user_id, int assignable_id, string allocation_mode, string allocation_amount, DateTime start_time, DateTime end_time)
         {
             var client = new RestClient(baseUrl);
-            var request = new RestRequest("users/" + userId + "/assignments", Method.POST);
+            var request = new RestRequest("users/" + user_id.ToString() + "/assignments", Method.POST);
             request.AddParameter("auth", authToken);
-            request.AddParameter("assignable_id", projectId);
-            request.AddParameter("allocation_mode", allocationMode);
-            if(allocationMode == "fixed") { request.AddParameter("fixed_hours", allocationAmount);}
-            else if(allocationMode == "percent"){ request.AddParameter("percent", allocationAmount);}
-            else { request.AddParameter("hours_per_day", allocationAmount); }
-            request.AddParameter("starts_at", startTime);
-            request.AddParameter("ends_at", endTime);
+            request.AddParameter("assignable_id", assignable_id);
+            request.AddParameter("allocation_mode", allocation_mode);
+            if (allocation_mode == "fixed") { request.AddParameter("fixed_hours", allocation_amount); }
+            else if (allocation_mode == "percent") { request.AddParameter("percent", allocation_amount); }
+            else { request.AddParameter("hours_per_day", allocation_amount); }
+            request.AddParameter("starts_at", start_time);
+            request.AddParameter("ends_at", end_time);
             client.Execute(request);
         }
 
-        public static void BatchEditUsers(string userId, string assignmentId, string allocationMode, string allocationAmount, DateTime startTime, DateTime endTime)
+        public static void EditAssignments(int user_id, int assignment_id, string allocation_mode, string allocation_amount, DateTime start_time, DateTime end_time)
         {
             var client = new RestClient(baseUrl);
-            var request = new RestRequest("users/" + userId + "/assignments/" + assignmentId, Method.PUT);
+            var request = new RestRequest("users/" + user_id.ToString() + "/assignments/" + assignment_id.ToString(), Method.PUT);
             request.AddParameter("auth", authToken);
-            //request.AddParameter("id", assignmentId);
-            //request.AddParameter("user_id", userId);
-            request.AddParameter("allocation_mode", allocationMode);
-            if (allocationMode == "fixed") { request.AddParameter("fixed_hours", allocationAmount); }
-            else if (allocationMode == "percent") { request.AddParameter("percent", allocationAmount); }
-            else { request.AddParameter("hours_per_day", allocationAmount); }
-            request.AddParameter("starts_at", startTime);
-            request.AddParameter("ends_at", endTime);
+
+            if (!string.IsNullOrEmpty(allocation_mode) && !string.IsNullOrEmpty(allocation_amount))
+            {
+                request.AddParameter("allocation_mode", allocation_mode);
+                if (allocation_mode == "fixed") { request.AddParameter("fixed_hours", allocation_amount); }
+                else if (allocation_mode == "percent") { request.AddParameter("percent", allocation_amount); }
+                else { request.AddParameter("hours_per_day", allocation_amount); }
+            }
+            if (start_time != null)
+            {
+                request.AddParameter("starts_at", start_time);
+            }
+            if (end_time != null)
+            {
+                request.AddParameter("ends_at", end_time);
+            }
+
             client.Execute(request);
         }
 
         #endregion
+
 
     }
 }

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Project Index";
+    ViewBag.Title = "Home Index";
 }
 @model List<fq540TenK.Models.Project>
 <h4>Project List:</h4>
@@ -11,24 +11,25 @@
                 <tr>
                     <th>Project Name</th>
                     <th>Client Name</th>
-                    <th># of Phases</th>
-                    <th>Last Updated</th>
+                    <th>Creation Date</th>
+                    <th>Last Modified</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var project in Model)
                 {
-                    <tr id="@project.id">
-                        <td>@project.name</td>
+                    <tr data-project-id="@project.id">
                         <td>
-                            @if (project.client != null){
+                            @if (project.client != null)
+                            {
                                 @project.client
                             }
                             else {
-                                @:(No Client Specified)
+                                @:No Client Specified
                             }
                         </td>
-                        <td>@project.phase_count</td>
+                        <td>@project.name</td>
+                        <td>@project.created_at.Date.ToString("MMMM dd, yyyy")</td>
                         <td>@project.updated_at.Date.ToString("MMMM dd, yyyy")</td>
                     </tr>
                 }

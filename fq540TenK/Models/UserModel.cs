@@ -84,14 +84,4 @@ namespace fq540TenK.Models
         public string thumbnail { get; set; }
     }
 
-    public class AddUsersModel
-    {
-        public List<string> users { get; set; }
-        public string project_id { get; set; }
-        public string allocation_mode { get; set; }
-        public string allocation_amount { get; set; }
-        public DateTime start_time { get; set; }
-        public DateTime end_time { get; set; }
-    }
-
 }

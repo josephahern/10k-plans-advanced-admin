@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -207,11 +208,13 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="APICalls.cs" />
+    <Compile Include="Controllers\APIController.cs" />
+    <Compile Include="Controllers\AssignmentController.cs" />
+    <Compile Include="Controllers\ComponentsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhaseController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -239,6 +242,7 @@
     <Content Include="includes\css\bootstrap.css" />
     <Content Include="includes\css\bootstrap.min.css" />
     <Content Include="includes\css\style.css" />
+    <Content Include="includes\img\FQ540_logo.png" />
     <Content Include="includes\img\table-asc.gif" />
     <Content Include="includes\img\table-header.gif" />
     <Content Include="includes\img\table-desc.gif" />
@@ -279,12 +283,18 @@
     <Content Include="includes\css\bootstrap.css.map" />
     <Content Include="includes\css\bootstrap.min.css.map" />
     <Content Include="Views\Phase\Details.cshtml" />
-    <Content Include="Views\Project\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Project\Details.cshtml" />
-    <Content Include="Views\User\AddUserPartial.cshtml" />
-    <Content Include="Views\User\CurrentlyAssignedPartial.cshtml" />
-    <Content Include="Views\Project\NavbarProjectSelectPartial.cshtml" />
+    <Content Include="Views\Assignment\AddAssignmentPartial.cshtml" />
+    <Content Include="Views\Assignment\GetAssignmentsByProjectIdPartial.cshtml" />
+    <Content Include="Views\Components\NavProjectDropdownPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Assignment\AddAssignmentFormModalPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Assignment\GetAssignmentsFormModalPartial.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

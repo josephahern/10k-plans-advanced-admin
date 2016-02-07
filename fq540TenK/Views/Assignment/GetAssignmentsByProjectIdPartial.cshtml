@@ -1,5 +1,6 @@
 ﻿@using System.Linq
 @model List<fq540TenK.Models.ProjectAssignee>
+
 <hr />
 @if (!Model.Any())
 {
@@ -11,17 +12,17 @@
     </div>
 }
 else {
-            <div class="row">
-                <div class="col-md-12">
-                    <h4>Currently Assigned:</h4>
-                    <span>Batch Edit: <button class="btn btn-disabled batchEditButton" data-toggle="modal" data-target="#batch-edit-modal" disabled>None Selected</button> | <a href="#" class="selectAllAssigned">Select All</a> / <a href="#" class="selectNoneAssigned">Select None</a></span>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Currently Assigned:</h4>
+                <span>Batch Edit: <button class="btn btn-disabled batchEditButton" data-toggle="modal" data-target="#batch-edit-modal" disabled>None Selected</button> | <a href="#" class="selectAllAssigned">Select All</a> / <a href="#" class="selectNoneAssigned">Select None</a></span>
                     @foreach (var assignee in Model)
                     {
                         <h5><b>@assignee.display_name</b> | 
                         @if (assignee.discipline != null) {@assignee.discipline} 
                         @if (assignee.role != null) {@assignee.role} 
                         User ID: @assignee.id</h5>
-
+                   
                         if (!assignee.assignments.empty)
                         {
                             <table class="table table-bordered table-condensed">
@@ -35,8 +36,8 @@ else {
                                     <td rowspan="1" style="border-right:1px solid white; border-top: 1px solid white;"></td>
                                 </tr>
                                 @foreach (var assignment in assignee.assignments.data)
-                        {
-                            if (assignment.assignable_id == ViewBag.parentID)
+                                {
+                            if (assignment.assignable_id == ViewBag.assignableId)
                             {
                                         <tr>
                                             <th scope="row" style="text-align: center;">
@@ -89,54 +90,5 @@ else {
                     <span>Batch Edit: <button class="btn btn-disabled batchEditButton" data-toggle="modal" data-target="#batch-edit-modal" disabled>None Selected</button> | <a href="#" class="selectAllAssigned">Select All</a> / <a href="#" class="selectNoneAssigned">Select None</a></span>
                 </div>
             </div>
-            <!-- Batch Edit Modal -->
-            <div class="modal fade" id="batch-edit-modal" tabindex="-1" role="dialog" aria-labelledby="batch-edit-modal-label">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="batch-edit-modal-label">Batch Edit Project/Phase Resources</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h5>Resources To Be Edited: </h5>
-                                    <ul class="assigned-modal-list"></ul>
-                                    <hr />
-                                    <h5><b>Allocation Type & Amount:</b></h5>
-                                </div>
-                                <div id="allocationModeSelect">
-                                    <div class="col-md-4">
-                                        <input type="radio" name="allocationMode" value="percent" checked="checked"> Percentage <input type="text" name="percent" size="2"> %<br>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="radio" name="allocationMode" value="hours_per_day"> Daily <input type="text" name="hours_per_day" size="2" disabled> hrs<br>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="radio" name="allocationMode" value="fixed"> Total <input type="text" name="fixed" size="2" disabled> hrs<br>
-                                    </div>
-                                </div>
-                                <div class="col-md-6" style="margin-top:15px;">
-                                    <label for="edit-start-time">Start Time</label>
-                                        <div class="input-group date">
-                                            <input type="text" class="form-control edit-start-time" name="edit-start-time">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                        </div>
-                                </div>
-                                <div class="col-md-6" style="margin-top:15px;">
-                                    <label for="edit-end-time">End Time</label>
-                                        <div class="input-group date">
-                                            <input type="text" class="form-control edit-end-time" name="edit-end-time">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" id="edit-commit-submit" class="btn btn-primary">Commit Changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            }
+            Html.RenderAction("GetAssignmentsFormModalPartial", "Assignment", new { projectId = ViewBag.projectId, phaseId = ViewBag.phaseId });
+}

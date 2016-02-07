@@ -1,7 +1,8 @@
-﻿@{
+﻿@model fq540TenK.Models.Project
+@{
     ViewBag.Title = "Phase Details";
 }
-@model fq540TenK.Models.Project
+
 
 <div class="row">
     <ol class="breadcrumb">
@@ -9,7 +10,7 @@
         <li class="active">@Model.phase_name - Phase Details</li>
     </ol>
     <hr />
-    <div class="col-md-12">
+    <div class="col-md-8">
         <h4>Phase Details:</h4>
         <table class="table table-bordered">
             <tr>
@@ -37,8 +38,8 @@
         }
     </div>
 </div>
-@{ Html.RenderAction("CurrentlyAssignedPartial", "User", new { projectId = Model.id }); }
-@{ Html.RenderAction("AddUserPartial", "User", new { projectId = Model.id }); }
+@{ Html.RenderAction("GetAssignmentsByProjectIdPartial", "Assignment", new { projectId = Model.parent_id, phaseId = Model.id }); }
+@{ Html.RenderAction("AddAssignmentPartial", "Assignment", new { projectId = Model.parent_id, phaseId = Model.id }); }
 
 
 

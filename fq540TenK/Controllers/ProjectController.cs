@@ -9,36 +9,14 @@ namespace fq540TenK.Controllers
 {
     public class ProjectController : Controller
     {
-        // GET: Project
-        public ActionResult Index()
+        
+        public ActionResult Details(int projectId)
         {
-            List<Project> projects = APICalls.GetAllProjects();
-            return View(projects);
-        }
+            ViewBag.projectId = projectId;
+            ViewBag.phaseId = 0;
 
-        public ActionResult Details(int projectID)
-        {
-            Project project = APICalls.GetProjectById(projectID.ToString());
+            Project project = APIController.GetProjectById(projectId);
             return View(project);
-        }
-
-        public ActionResult Add(string projectID)
-        {
-            ViewBag.projectID = projectID;
-            return View();
-        }
-
-        public ActionResult Edit(string projectID)
-        {
-            ViewBag.projectID = projectID;
-            return View();
-        }
-
-        [ChildActionOnly]
-        public ActionResult NavbarProjectSelectPartial()
-        {
-            List<Project> projects = APICalls.GetAllProjects();
-            return PartialView(projects);
         }
 
     }

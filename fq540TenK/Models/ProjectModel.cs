@@ -32,8 +32,8 @@ namespace fq540TenK.Models
         public int timeentry_lockout { get; set; }
         public DateTime ends_at { get; set; }
         public DateTime starts_at { get; set; }
-        public object deleted_at { get; set; }
-        public string created_at { get; set; }
+        public DateTime deleted_at { get; set; }
+        public DateTime created_at { get; set; }
         public DateTime updated_at { get; set; }
         public bool use_parent_bill_rates { get; set; }
         public string thumbnail { get; set; }
