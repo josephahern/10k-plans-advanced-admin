@@ -14,7 +14,7 @@ namespace fq540TenK
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Phase Root",
+                name: "Phase Details",
                 url: "project/{projectID}/phase/{phaseID}/{action}",
                 defaults: new { controller = "Phase", action = "Details", projectID=" ", phaseID=" "},
                 constraints: new { projectID = @"\d+", phaseID = @"\d+" }

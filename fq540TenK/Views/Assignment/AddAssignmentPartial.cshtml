@@ -3,8 +3,8 @@
 <div class="row">
     <div class="col-md-12">
         <h4>Batch Assign Resources:</h4>
-        <input id="employee-search" name="search" placeholder="Start typing here..." type="text" data-list=".employee-list">
-        <ul class="employee-list">
+        <input id="resource-search" name="search" placeholder="Start typing here..." type="text" data-list=".resource-list">
+        <ul class="resource-list">
             @foreach (var user in Model)
             {
                 <li data-user-id="@user.id"><span class="glyphicon glyphicon-plus-sign"></span> @user.first_name @user.last_name</li>
@@ -12,8 +12,8 @@
         </ul>
     </div>
     <div class="col-md-12">
-        <div class="well hidden" id="employee-search-bucket" style="margin-top: 10px;">
-            <ul class="employee-bucket-list">
+        <div class="well hidden" id="resource-search-bucket" style="margin-top: 10px;">
+            <ul class="resource-bucket-list">
             </ul>
             <button type="button" id="add-user-trigger"class="btn btn-primary" style="margin-top: 10px;"><span class="glyphicon glyphicon-plus-sign"></span> Add Resources</button>
         </div>

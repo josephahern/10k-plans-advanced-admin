@@ -25,7 +25,7 @@
     });
 
     // Initialize "Batch Add Users" search results 
-    $('#employee-search').hideseek({
+    $('#resource-search').hideseek({
         hidden_mode: true
     });
 
@@ -47,11 +47,11 @@
     });
 
     //
-    // Batch Add Users
+    // Add Assignments
     //
 
     // Click function for adding a Resource from "Batch Add Users" search result into 
-    $('.employee-list, .employee-bucket-list').on('click', 'li', function () {
+    $('.resource-list, .resource-bucket-list').on('click', 'li', function () {
         var userId = $(this).attr('data-user-id');
         var userFullName = $(this).text();
         toggleToEmployeeBucket(userId, userFullName);
@@ -59,23 +59,43 @@
 
     // Takes employeeId and employeeName
     function toggleToEmployeeBucket(userId, userFullName) {
-        if ($('.employee-bucket-list li[data-user-id="' + userId + '"]').length) {
-            $('.employee-bucket-list li[data-user-id="' + userId + '"]').remove();
-            $('.tb-assigned-modal-list li[data-user-id="' + userId + '"]').remove();
-            $(".employee-list").append("<li data-user-id=\"" + userId + "\"><span class=\"glyphicon glyphicon-plus-sign\" aria-hidden=\"true\"></span> " + userFullName + "</li>");
+        if ($('.resource-bucket-list li[data-user-id="' + userId + '"]').length) {
+            $('.resource-bucket-list li[data-user-id="' + userId + '"]').remove();
+            $('.add-assignment-modal-list li[data-user-id="' + userId + '"]').remove();
+            $(".resource-list").append("<li data-user-id=\"" + userId + "\"><span class=\"glyphicon glyphicon-plus-sign\" aria-hidden=\"true\"></span> " + userFullName + "</li>");
         } else {
-            $(".employee-bucket-list").append("<li data-user-id=\"" + userId + "\"><span class=\"glyphicon glyphicon-minus-sign\" aria-hidden=\"true\"></span>" + userFullName + "</li>");
-            $(".tb-assigned-modal-list").append("<li data-user-id=\"" + userId + "\">" + userFullName + "</li>");
-            $('.employee-list li[data-user-id="' + userId + '"]').remove();
+            $(".resource-bucket-list").append("<li data-user-id=\"" + userId + "\"><span class=\"glyphicon glyphicon-minus-sign\" aria-hidden=\"true\"></span>" + userFullName + "</li>");
+            $(".add-assignment-modal-list").append("<li data-user-id=\"" + userId + "\">" + userFullName + "</li>");
+            $('.resource-list li[data-user-id="' + userId + '"]').remove();
         }
 
-        if ($(".employee-bucket-list").length > 0) {
-            $("#employee-search-bucket").toggleClass("hidden", false);
+        if ($(".resource-bucket-list").length > 0) {
+            $("#resource-search-bucket").toggleClass("hidden", false);
         }
-        else if ($(".employee-bucket-list").length == 0) {
-            $("#employee-search-bucket").toggleClass("hidden", true);
+        else if ($(".resource-bucket-list").length == 0) {
+            $("#resource-search-bucket").toggleClass("hidden", true);
         }
+        buildAddAssignmentHiddenValues();
     }
+
+    function buildAddAssignmentHiddenValues() {
+        var users = new Array();
+        var assignments = new Array();
+
+        $("ul.add-assignment-modal-list li").each(function (index) {
+            var userId = $(this).attr('data-userid');
+            var assignmentId = $(this).attr('data-id');
+            users.push(userId);
+            assignments.push(assignmentId);
+        });
+
+        $("#batch-add-modal input[name='users']").val(users.join(','));
+        $("#batch-add-modal input[name='assignments']").val(assignments.join(','));
+    }
+
+    //
+    // Edit Assignments
+    //
 
     $(".selectAllAssigned").click(function (e) {
         $('input:checkbox.currentlyAssigned').prop('checked', true);
@@ -101,13 +121,13 @@
         var data = $(this).data();
         toggleToEditAssignmentList(assignmentID, data);
         countAssignmentCheckbox();
+        
     });
 
     // When a checkbox is selected besides a resource, this action runs
     function toggleToEditAssignmentList(assignmentId, data) {
         if ($('.edit-assignment-modal-list li[data-id="' + assignmentId + '"]').length) {
             $('.edit-assignment-modal-list li[data-id="' + assignmentId + '"]').remove();
-            buildEditAssignmentHiddenValue();
         } else {
             $(".edit-assignment-modal-list").append('<li data-id="' + assignmentId + '">Assignment ID: ' + assignmentId + '</li>');
             for (var i in data) {
@@ -141,13 +161,15 @@
         var users = new Array();
         var assignments = new Array();
 
-        $(".edit-assignment-modal-list li").each(function (index) {
-            users.push($(this).attr("data-user-id"));
-            assignments.push($this).attr("data-id");
+        $("ul.edit-assignment-modal-list li").each(function (index) {
+            var userId = $(this).attr('data-userid');
+            var assignmentId = $(this).attr('data-id');
+            users.push(userId);
+            assignments.push(assignmentId);
         });
 
-        $("#batch-edit-modal input[name='users']").val(users.join);
-        $("#batch-edit-modal input[name='assignments']").val(users.join);
+        $("#batch-edit-modal input[name='users']").val(users.join(','));
+        $("#batch-edit-modal input[name='assignments']").val(assignments.join(','));
     }
 
     //Batch Edit Users Modal Allocation Mode Module

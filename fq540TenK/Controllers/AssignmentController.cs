@@ -15,8 +15,26 @@ namespace fq540TenK.Controllers
             {
                 APIController.AddAssignments(int.Parse(users[x]), data.assignable_id, data.allocation_mode, data.allocation_amount, data.start_time, data.end_time);
             }
-
-            return Redirect("Home/Success");
+            
+            if(data.phase_id == 0)
+            {
+                return RedirectToRoute(new
+                {
+                    controller = "Project",
+                    action = "Details",
+                    projectID = data.project_id
+                });
+            } else
+            {
+                return RedirectToRoute(new
+                {
+                    controller = "Phase",
+                    action = "Details",
+                    projectID = data.project_id,
+                    phaseID = data.phase_id
+                });
+            }
+            
         }
 
         [HttpPost]
@@ -28,7 +46,27 @@ namespace fq540TenK.Controllers
             {
                 APIController.EditAssignments(int.Parse(users[x]), int.Parse(assignments[x]), data.allocation_mode, data.allocation_amount, data.start_time, data.end_time);
             }
-            return Redirect("Home/Success");
+
+            if (data.phase_id == 0)
+            {
+                return RedirectToRoute(new
+                {
+                    controller = "Project",
+                    action = "Details",
+                    projectID = data.project_id
+                });
+            }
+            else
+            {
+                return RedirectToRoute(new
+                {
+                    controller = "Phase",
+                    action = "Details",
+                    projectID = data.project_id,
+                    phaseID = data.phase_id
+                });
+            }
+
         }
 
         [ChildActionOnly]

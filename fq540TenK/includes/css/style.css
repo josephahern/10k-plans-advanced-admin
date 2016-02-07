@@ -50,17 +50,17 @@ body {
     border-radius: 6px 0 6px 6px;
 }
 
-.assignee-list, .employee-list, .employee-bucket-list {
+.assignee-list, .resource-list, .resource-bucket-list {
 	margin: 0px;
 	padding: 0px;
 	list-style: none;
 }
 
-employee-bucket-list {
+.resource-bucket-list {
     margin-top: 10px;
 }
 
-.assignee-list li, .employee-list li, .employee-bucket-list li{
+.assignee-list li, .resource-list li, .resource-bucket-list li{
 	background-color: #FFF;
     border: 1px solid #e3e3e3;
     border-radius: 4px;
@@ -71,7 +71,7 @@ employee-bucket-list {
 	cursor: pointer;
 }
 
-.assignee-list li:hover, .employee-list li:hover, .employee-bucket-list li:hover{
+.assignee-list li:hover, .resource-list li:hover, .resource-bucket-list li:hover{
 	background-color: #f5f5f5;
 }
 

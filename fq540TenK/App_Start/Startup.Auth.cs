@@ -58,11 +58,11 @@ namespace fq540TenK
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "34141593357-62hkeoos2ajdh7sl40p8nn5eqf1ua7bf.apps.googleusercontent.com",
+                ClientSecret = "34141593357-62hkeoos2ajdh7sl40p8nn5eqf1ua7bf.apps.googleusercontent.com"
+            });
         }
     }
 }
