@@ -6,7 +6,7 @@ namespace fq540TenK.Controllers
 {
     public class ComponentsController : Controller
     {
-
+        [AllowAnonymous]
         [ChildActionOnly]
         public ActionResult NavProjectDropdownPartial()
         {
