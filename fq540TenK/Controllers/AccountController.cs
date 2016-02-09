@@ -24,7 +24,15 @@ namespace fq540TenK.Controllers
             return View();
         }
 
-        //
+        // POST: /Account/Logout
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Logout()
+        {
+            AuthenticationManager.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
@@ -52,10 +60,10 @@ namespace fq540TenK.Controllers
                     if (userEmail.ToString() != "joe.ahern@fq540.com")
                     {
                         AuthenticationManager.SignOut();
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("ErrorBadLogin", "Home");
                     }
 
-                    return RedirectToAction("ErrorBadLogin", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
