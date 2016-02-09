@@ -1,5 +1,4 @@
-﻿@model fq540TenK.Models.ExternalLoginListViewModel
-@using Microsoft.Owin.Security
+﻿@using Microsoft.Owin.Security
 
 <h4>Please login using your Frequency540 issued email address. This panel is intended to be used (and can only be accessed) by authorized management only.</h4>
 <hr />
@@ -15,7 +14,7 @@
         </div>
     }
     else {
-        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }))
+        using (Html.BeginForm("ExternalLogin", "Account"))
         {
             @Html.AntiForgeryToken()
             <div id="socialLoginList">

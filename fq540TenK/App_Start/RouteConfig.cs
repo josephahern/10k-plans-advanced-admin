@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
+
 namespace fq540TenK
 {
     public class RouteConfig
@@ -42,7 +43,7 @@ namespace fq540TenK
             routes.MapRoute(
                 name: "Catch All",
                 url:"{*path}",
-                defaults: new { controller = "Error", action = "NotFound" }
+                defaults: new { controller = "Home", action = "NotFound" }
             );
         }
     }

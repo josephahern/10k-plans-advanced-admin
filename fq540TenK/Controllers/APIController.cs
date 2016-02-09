@@ -117,6 +117,27 @@ namespace fq540TenK
 
         #endregion
 
+        #region Google API
+
+        public static ExternalLoginConfirmationViewModel getUserEmail(string auth_token)
+        {
+            var client = new RestClient("https://www.googleapis.com");
+            var request = new RestRequest(Method.GET);
+            request.Resource = "plus/v1/people/me?key={key}";
+            request.AddParameter("key", auth_token, ParameterType.UrlSegment);
+            request.AddHeader("Authorization", "Bearer " + auth_token);
+            request.AddHeader("Content-Type", "application/json; charset=utf-8");
+
+            var response = client.Execute(request);
+            Console.WriteLine(response.Content);
+
+            ExternalLoginConfirmationViewModel users = new ExternalLoginConfirmationViewModel();
+
+            return users;
+
+        }
+
+        #endregion
 
     }
 }

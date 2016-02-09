@@ -15,5 +15,15 @@ namespace fq540TenK.Controllers
             List<Project> projects = APIController.GetAllProjects();
             return View(projects);
         }
+        [AllowAnonymous]
+        public ActionResult NotFound()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        public ActionResult BadLogin()
+        {
+            return View();
+        }
     }
 }

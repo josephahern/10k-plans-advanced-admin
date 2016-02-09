@@ -1,48 +1,48 @@
-﻿using System;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using fq540TenK.Models;
+using Microsoft.Owin.Security;
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace fq540TenK
 {
     public partial class Startup
     {
-        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
-            // Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
-
-            // Enable the application to use a cookie to store information for the signed in user
-            // and to use a cookie to temporarily store information about a user logging in with a third party login provider
-            // Configure the sign in cookie
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            var cookieOptions = new CookieAuthenticationOptions
             {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
-                Provider = new CookieAuthenticationProvider
-                {
-                    // Enables the application to validate the security stamp when the user logs in.
-                    // This is a security feature which is used when you change a password or add an external login to your account.  
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
-                        validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
-                }
-            });            
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+                CookieName = "fq54010K",
+                AuthenticationType = "ExternalCookie",
+                LoginPath = new PathString("/Account/Login/")
+            };
 
-            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            app.UseCookieAuthentication(cookieOptions);
+            app.SetDefaultSignInAsAuthenticationType(cookieOptions.AuthenticationType);
+
+            var googleOptions = new GoogleOAuth2AuthenticationOptions()
             {
                 ClientId = "34141593357-62hkeoos2ajdh7sl40p8nn5eqf1ua7bf.apps.googleusercontent.com",
                 ClientSecret = "Rwl7HXa7rUZTOGKzz9xk4J7X",
-                CallbackPath = new PathString("/Account/ExternalLoginCallback")
-            });
+                CallbackPath = new PathString("/Account/ExternalLoginCallback/"),
+                Provider = new GoogleOAuth2AuthenticationProvider()
+                {
+                    OnAuthenticated = context =>
+                    {
+                        context.Identity.AddClaim(new Claim("urn:token:google", context.AccessToken));
+                        return Task.FromResult(true);
+                    }
+                }
+
+            };
+
+            app.UseGoogleAuthentication(googleOptions);
+
         }
     }
+
 }

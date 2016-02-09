@@ -5,9 +5,10 @@ namespace fq540TenK.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        public string access_token { get; set; }
+        [EmailAddress]
+        public string email { get; set; }
+        public string name { get; set; }
     }
 
     public class ExternalLoginListViewModel
