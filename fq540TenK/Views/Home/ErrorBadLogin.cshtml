@@ -1,16 +1,17 @@
 ﻿@using Microsoft.Owin.Security
+@{
+    ViewBag.Title = "Bad Login";
+}
 
-<h4>To access this internal application, please login using your Frequency540 issued email address by clicking the button below.</h4>
+<h2>Uh, oh - that one didn't work.</h2> 
+<h4>Please click the button below to login with a different and/or better email address.</h4>
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
     if (loginProviders.Count() == 0)
     {
         <div>
-            <p>
-                There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support logging in via external services.
-            </p>
+            <p>There are no external authentication services configured.</p>
         </div>
     }
     else {
@@ -28,4 +29,5 @@
         }
     }
 }
+
 

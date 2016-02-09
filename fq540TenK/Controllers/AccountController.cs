@@ -15,6 +15,7 @@ namespace fq540TenK.Controllers
     [AllowAnonymous]
     public class AccountController : Controller
     {
+        private static string[] approvedUsers = System.Configuration.ConfigurationManager.AppSettings["TenKPlansApprovedUsers"].Split(',');
 
         // GET: /Account/Login
         [AllowAnonymous]
@@ -56,14 +57,16 @@ namespace fq540TenK.Controllers
 
                 if (userEmail != null)
                 {
-
-                    if (userEmail.ToString() != "joe.ahern@fq540.com")
+                    for(int x=0; x<approvedUsers.Length; x++)
                     {
-                        AuthenticationManager.SignOut();
-                        return RedirectToAction("ErrorBadLogin", "Home");
+                        if (userEmail.ToString() == approvedUsers[x])
+                        {
+                            
+                            return RedirectToAction("Index", "Home");
+                        }
                     }
-
-                    return RedirectToAction("Index", "Home");
+                    AuthenticationManager.SignOut();
+                    return RedirectToAction("ErrorBadLogin", "Home");
                 }
                 else
                 {
