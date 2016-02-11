@@ -1,0 +1,45 @@
+﻿<a id="add-phase-trigger" href="#">+ Add Phase</a>
+    <!-- Add Phase Modal -->
+    @using (Html.BeginForm("AddPhase", "Phase", FormMethod.Post))
+    {
+        <div class="modal fade" id="add-phase-modal" tabindex="-1" role="dialog" aria-labelledby="add-phase-modal-label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Add A Phase To This Project:</h4>
+                        <input type="hidden" name="project_id" value="@ViewBag.project_id" />
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12" style="margin-top:15px;">
+                                <label for="phase_name">Phase Name</label>
+                                <input type="text" name="phase_name" required>
+                            </div>
+                                <div class="col-md-6" style="margin-top:15px;">
+                                    <label for="start_time">Start Time</label>
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control add-modal-start-time" name="start_time" required>
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                    </div>
+                                    <h5><a href="#" class="align_start" id="add-modal-modal">[Align Start]</a></h5>
+                                </div>
+                                <div class="col-md-6" style="margin-top:15px;">
+                                    <label for="end_time">End Time</label>
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control add-modal-end-time" name="end_time" required>
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                    </div>
+                                    <h5><a href="#" class="align_end" id="add-modal-modal">[Align End]</a></h5>
+                                </div>
+
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Phase</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }

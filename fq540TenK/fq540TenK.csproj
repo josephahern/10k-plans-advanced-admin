@@ -356,6 +356,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\fq540-tenk-app.pubxml" />
+    <Content Include="Views\Phase\AddPhasePartial.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

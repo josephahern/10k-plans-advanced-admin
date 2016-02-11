@@ -277,6 +277,9 @@
         $('a', this).html('<span class="glyphicon glyphicon-ok"></span>');
     })
 
+    $("#add-phase-trigger").click(function () {
+        $('#add-phase-modal').modal();
+    })
     
 
 });

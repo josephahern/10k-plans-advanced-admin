@@ -40,6 +40,17 @@ namespace fq540TenK
             return project;
         }
 
+        public static void AddPhase(string phase_name, int project_id, string start_time, string end_time)
+        {
+            var client = new RestClient(baseUrl);
+            var request = new RestRequest("projects/" + project_id.ToString() + "/phases", Method.POST);
+            request.AddParameter("auth", authToken);
+            request.AddParameter("phase_name", phase_name);
+            request.AddParameter("starts_at", start_time);
+            request.AddParameter("ends_at", end_time);
+            client.Execute(request);
+        }
+
         #endregion
 
         #region USERS
