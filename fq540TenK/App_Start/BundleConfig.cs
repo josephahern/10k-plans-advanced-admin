@@ -10,6 +10,7 @@ namespace fq540TenK
         {
 
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                      "~/includes/js/jquery-2.2.0.min.js",
                       "~/includes/js/bootstrap.min.js",
                       "~/includes/js/bootstrap-datepicker.min.js",
                       "~/includes/js/jquery.hideseek.min.js",

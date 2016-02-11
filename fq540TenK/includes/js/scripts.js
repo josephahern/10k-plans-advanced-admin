@@ -255,18 +255,26 @@
     $(".delete-resource-x").flip(
         {
             axis: 'x',
+            trigger: 'manual',
             autoSize: false
         }
     );
 
-    $(".delete-resource-x").click(function () {
-        var assignmentId = $(this).attr("data-assignment-id");
-        console.log(assignmentId);
+    $(".delete-resource-x .front").click(function () {
+        var assignmentId = $(this).closest('.delete-resource-x').attr("data-assignment-id");
+        $(".delete-resource-x[data-assignment-id=" + assignmentId + "]").flip(true);
         setTimeout(function () {
             $(".delete-resource-x[data-assignment-id=" + assignmentId + "]").flip(false);
-            console.log("Flip Back");
+            $(".delete-resource-x[data-assignment-id=" + assignmentId + "] .back").css({ "background-color": "orange", "color": "white" });
         }, 2000);
     })
+
+    $(".delete-resource-x .back").click(function () {
+        $(this).parent('.back').css({ "background-color": "green", "color": "white" });
+        $(this).css({ "background-color": "green", "color": "white" });
+        $(this).html('<span class="glyphicon glyphicon-ok"></span></a>');
+    })
+
     
 
 });

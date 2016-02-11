@@ -136,17 +136,17 @@ body {
 }
 
 th.headerSortUp { 
-    background-image: url(../img/table-asc.gif) !important; 
+    background-image: url('/includes/img/table-asc.gif') !important; 
     background-color: #f8f8f8; 
 } 
 
 th.headerSortDown { 
-    background-image: url(../img/table-desc.gif) !important; 
+    background-image: url('/includes/img/table-desc.gif') !important; 
     background-color: #f8f8f8; 
 } 
 
 th.header { 
-    background-image: url(../img/table-header.gif); 
+    background-image: url('/includes/img/table-header.gif') !important; 
     cursor: pointer; 
     font-weight: bold; 
     background-repeat: no-repeat; 

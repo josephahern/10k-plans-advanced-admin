@@ -269,11 +269,6 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="RESTCall.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -296,6 +291,7 @@
     <Content Include="includes\img\table-desc.gif" />
     <Content Include="includes\js\bootstrap-datepicker.min.js" />
     <Content Include="includes\js\bootstrap.min.js" />
+    <Content Include="includes\js\jquery-2.2.0.min.js" />
     <Content Include="includes\js\jquery.filtertable.min.js" />
     <Content Include="includes\js\jquery.flip.min.js" />
     <Content Include="includes\js\jquery.hideseek.min.js" />
@@ -352,13 +348,14 @@
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\PublishProfiles\radiantapp.pubxml" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <Content Include="Views\Home\ErrorBadLogin.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\fq540-tenk-app.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
