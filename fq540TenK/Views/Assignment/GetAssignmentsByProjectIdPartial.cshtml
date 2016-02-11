@@ -78,7 +78,19 @@ else {
                                             }
                                             <td>@assignment.starts_at.Date.ToString("MMMM dd, yyyy")</td>
                                             <td>@assignment.ends_at.Date.AddDays(-1).ToString("MMMM dd, yyyy")</td>
-                                            <td class="delete-resource-x" data-assignable-id="@assignment.id"><span class="glyphicon glyphicon-remove remove-assignment" style="margin:4px;" data-assignment-id="@assignment.id"></span></td>
+                                            @using (Html.BeginForm("DeleteAssignment", "Assignment", FormMethod.Post, new { id = "delete-"+assignment.id}))
+                                            {
+                                                <input type="hidden" name="assignment_id" value="@assignment.id">
+                                                <input type="hidden" name="user_id" value="@assignee.id">
+                                                <input type="hidden" name="project_id" value="@ViewBag.projectId">
+                                                <input type="hidden" name="phase_id" value="@ViewBag.phaseId">
+                                                <td class="delete-resource">
+                                                    <div class="delete-resource-x" data-assignment-id="@assignment.id">
+                                                        <div class="front"><span class="glyphicon glyphicon-remove"></span></div>
+                                                        <div class="back"><a href="javascript:document.getElementById('delete-@assignment.id').submit()"><span class="glyphicon glyphicon-question-sign" data-assignment-id="@assignment.id"></span></a></div>
+                                                    </div>
+                                                </td>
+                                            }
                                         </tr>
                                     }
                                 }

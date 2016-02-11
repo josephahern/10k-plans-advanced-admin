@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using MoreLinq;
 using System.Linq;
-using System.Net;
-using System.Web;
 using RestSharp;
-using Newtonsoft.Json.Linq;
 using fq540TenK.Models;
-using System.Web.Mvc;
 
 namespace fq540TenK
 {
@@ -112,6 +106,14 @@ namespace fq540TenK
                 request.AddParameter("ends_at", end_time.ToString("yyyy-MM-dd"));
             }
 
+            client.Execute(request);
+        }
+
+        public static void DeleteAssignment (int assignment_id, int user_id)
+        {
+            var client = new RestClient(baseUrl);
+            var request = new RestRequest("users/" + user_id.ToString() + "/assignments/" + assignment_id.ToString(), Method.DELETE);
+            request.AddParameter("auth", authToken);
             client.Execute(request);
         }
 

@@ -70,4 +70,12 @@ namespace fq540TenK.Models
         public DateTime end_time { get; set; }
     }
 
+    public class DeleteAssignmentForm
+    {
+        public int user_id { get; set; }
+        public int assignment_id { get; set; }
+        public int project_id { get; set; }
+        public int phase_id { get; set; }
+    }
+
 }

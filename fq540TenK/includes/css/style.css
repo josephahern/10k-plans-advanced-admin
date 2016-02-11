@@ -154,14 +154,39 @@ th.header {
     padding-left: 25px !important; 
 } 
 
-.delete-resource-x {
-    text-align: center;
-    vertical-align: middle;
-    color: red;
+td.delete-resource {
+    padding: 0px !important;
+    width: 35px;
+    height: 35px;
+    overflow: hidden;
 }
 
-.delete-resource-x:hover {
+.front {
+    background-color: white;
+    color: red;
+    width: 35px;
+    height: 35px;
+    text-align:center;
+    vertical-align: middle;
+    padding: 9px;
+}
+
+.front:hover {
     background-color: red;
     color: white;
     cursor: pointer;
+}
+
+.back {
+    background-color:orange;
+    width: 35px;
+    height: 35px;
+    color: white;
+    cursor: pointer;
+    text-align:center;
+    vertical-align: middle;
+    padding: 9px;
+}
+.back a{
+    color: white;
 }

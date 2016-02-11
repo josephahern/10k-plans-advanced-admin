@@ -140,5 +140,30 @@ namespace fq540TenK.Controllers
             return PartialView();
         }
 
+        public ActionResult DeleteAssignment(DeleteAssignmentForm data) {
+
+            APIController.DeleteAssignment(data.assignment_id, data.user_id);
+
+            if (data.phase_id == 0)
+            {
+                return RedirectToRoute(new
+                {
+                    controller = "Project",
+                    action = "Details",
+                    projectID = data.project_id
+                });
+            }
+            else
+            {
+                return RedirectToRoute(new
+                {
+                    controller = "Phase",
+                    action = "Details",
+                    projectID = data.project_id,
+                    phaseID = data.phase_id
+                });
+            }
+        }
+
     }
 }

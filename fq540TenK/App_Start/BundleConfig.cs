@@ -15,6 +15,7 @@ namespace fq540TenK
                       "~/includes/js/jquery.hideseek.min.js",
                       "~/includes/js/jquery.filtertable.min.js",
                       "~/includes/js/jquery.tablesorter.min.js",
+                      "~/includes/js/jquery.flip.min.js",
                       "~/includes/js/scripts.js"));
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(

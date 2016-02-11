@@ -252,17 +252,21 @@
     });
 
     // Delete Assignment Button
-    $(function () {
-        $(".delete-resource-x").hover(function () {
-            $(".delete-resource-x").click(function () {
-                $(this).css("background-color", "blue");
-            });
-        }, function () {
-            // change to any color that was previously used.
-            $(".delete-resource-x").css('background-color', 'white');
-        });
-    });
-    
+    $(".delete-resource-x").flip(
+        {
+            axis: 'x',
+            autoSize: false
+        }
+    );
 
+    $(".delete-resource-x").click(function () {
+        var assignmentId = $(this).attr("data-assignment-id");
+        console.log(assignmentId);
+        setTimeout(function () {
+            $(".delete-resource-x[data-assignment-id=" + assignmentId + "]").flip(false);
+            console.log("Flip Back");
+        }, 2000);
+    })
+    
 
 });
