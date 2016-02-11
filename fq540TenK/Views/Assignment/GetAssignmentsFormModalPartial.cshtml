@@ -28,23 +28,23 @@
                                     <input type="radio" name="allocation_mode" value="percent" id="edit-percent" required />
                                     Percent
                                 </label>
-                                <input type="text" name="edit-amount-percent" id="edit-amount-percent" size="2" disabled> %
+                                <input type="text" name="edit-amount-percent" class="edit_allocation_input" id="edit-amount-percent" size="2" disabled> %
                             </div>
                             <div class="col-md-4">
                                 <label>
-                                    <input type="radio" name="allocation_mode" value="hours-per-day" id="edit-hours-per-day" required />
+                                    <input type="radio" name="allocation_mode" value="hours_per_day" id="edit-hours-per-day" required />
                                     Daily
                                 </label>
-                                <input type="text" name="edit-amount-hours-per-day" id="edit-amount-hours-per-day" size="2" disabled> hrs
+                                <input type="text" name="edit-amount-hours-per-day" class="edit_allocation_input" id="edit-amount-hours-per-day" size="2" disabled> hrs
                             </div>
                             <div class="col-md-4">
                                 <label>
                                     <input type="radio" name="allocation_mode" value="fixed" id="edit-fixed" required />
                                     Total
                                 </label>
-                                <input type="text" name="edit-amount-fixed" id="edit-amount-fixed" size="2" disabled> hrs
+                                <input type="text" name="edit-amount-fixed" class="edit_allocation_input" id="edit-amount-fixed" size="2" disabled> hrs
                             </div>
-                            <input type="hidden" name="allocation_amount" value="none" />
+                            <input type="hidden" name="allocation_amount" id="edit_allocation_amount" value="none" />
                         </div>
                         <div class="col-md-6" style="margin-top:15px;">
                             <label for="start_time">Start Time</label>
@@ -52,6 +52,7 @@
                                 <input type="text" class="form-control edit-start-time" name="start_time">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
+                            <h5><a href="#" class="align_start" id="edit-modal">[Align Start]</a></h5>
                         </div>
                         <div class="col-md-6" style="margin-top:15px;">
                             <label for="end_time">End Time</label>
@@ -59,6 +60,7 @@
                                 <input type="text" class="form-control edit-end-time" name="end_time">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
+                            <h5><a href="#" class="align_end" id="edit-modal">[Align End]</a></h5>
                         </div>
 
                     </div>

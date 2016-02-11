@@ -294,6 +294,7 @@
     <Content Include="includes\img\table-desc.gif" />
     <Content Include="includes\js\bootstrap-datepicker.min.js" />
     <Content Include="includes\js\bootstrap.min.js" />
+    <Content Include="includes\js\jquery.filtertable.min.js" />
     <Content Include="includes\js\jquery.hideseek.min.js" />
     <Content Include="includes\js\scripts.js" />
     <Content Include="includes\fonts\glyphicons-halflings-regular.woff2" />

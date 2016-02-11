@@ -69,7 +69,7 @@ else {
                                             else if (assignment.allocation_mode == "percent")
                                             {
                                                 <td>Percent</td>
-                                                <td>@assignment.percent %</td>
+                                                <td>@(assignment.percent * 100)%</td>
                                             }
                                             else
                                             {
@@ -77,8 +77,8 @@ else {
                                                 <td>@assignment.hours_per_day hrs/day</td>
                                             }
                                             <td>@assignment.starts_at.Date.ToString("MMMM dd, yyyy")</td>
-                                            <td>@assignment.ends_at.Date.ToString("MMMM dd, yyyy")</td>
-                                            <td class="delete-resource-x"><span class="glyphicon glyphicon-remove remove-assignment" style="margin:4px;" data-assignment-id="@assignment.id"></span></td>
+                                            <td>@assignment.ends_at.Date.AddDays(-1).ToString("MMMM dd, yyyy")</td>
+                                            <td class="delete-resource-x" data-assignable-id="@assignment.id"><span class="glyphicon glyphicon-remove remove-assignment" style="margin:4px;" data-assignment-id="@assignment.id"></span></td>
                                         </tr>
                                     }
                                 }

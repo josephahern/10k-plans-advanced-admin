@@ -10,10 +10,22 @@ namespace fq540TenK.Controllers
         [HttpPost]
         public ActionResult Add(AddAssignmentForm data)
         {
+            int assignable_id;
+
+            if (data.phase_id == 0)
+            {
+                assignable_id = data.project_id;
+            } else
+            {
+                assignable_id = data.phase_id;
+            }
+            
             string[] users = data.users.Split(',');
             for(int x = 0; x < users.Length; x++)
             {
-                APIController.AddAssignments(int.Parse(users[x]), data.assignable_id, data.allocation_mode, data.allocation_amount, data.start_time, data.end_time);
+                var timeToStart = data.start_time.ToString("yyyy-MM-dd");
+                var timeToEnd = data.end_time.ToString("yyyy-MM-dd");
+                APIController.AddAssignments(int.Parse(users[x]), assignable_id, data.allocation_mode, data.allocation_amount, data.start_time, data.end_time);
             }
             
             if(data.phase_id == 0)

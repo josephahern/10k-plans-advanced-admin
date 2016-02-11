@@ -21,7 +21,7 @@ namespace fq540TenK.Controllers
             return View();
         }
         [AllowAnonymous]
-        public ActionResult BadLogin()
+        public ActionResult ErrorBadLogin()
         {
             return View();
         }

@@ -17,13 +17,13 @@
                 <th>Phase Name:</th>
                 <td>@Model.phase_name</td>
                 <th>Starts At:</th>
-                <td>@Model.starts_at.Date.ToString("MMMM dd, yyyy")</td>
+                <td class="parent-start-time" data-time="@Model.starts_at.Date.ToString("MM/dd/yyyy")" >@Model.starts_at.Date.ToString("MMMM dd, yyyy")</td>
             </tr>
             <tr>
                 <th>Phase ID:</th>
                 <td>@Model.id</td>
                 <th>Ends At:</th>
-                <td>@Model.ends_at.Date.ToString("MMMM dd, yyyy")</td>
+                <td class="parent-end-time" data-time="@Model.ends_at.Date.ToString("MM/dd/yyyy")" >@Model.ends_at.Date.ToString("MMMM dd, yyyy")</td>
             </tr>
         </table>
         @if (!Model.children.empty)

@@ -13,6 +13,7 @@ namespace fq540TenK
                       "~/includes/js/bootstrap.min.js",
                       "~/includes/js/bootstrap-datepicker.min.js",
                       "~/includes/js/jquery.hideseek.min.js",
+                      "~/includes/js/jquery.filtertable.min.js",
                       "~/includes/js/jquery.tablesorter.min.js",
                       "~/includes/js/scripts.js"));
 

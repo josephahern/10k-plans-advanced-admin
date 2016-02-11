@@ -52,7 +52,6 @@ namespace fq540TenK.Models
         public string users { get; set; }
         public int project_id { get; set; }
         public int phase_id { get; set; }
-        public int assignable_id { get; set; }
         public string allocation_mode { get; set; }
         public string allocation_amount { get; set; }
         public DateTime start_time { get; set; }

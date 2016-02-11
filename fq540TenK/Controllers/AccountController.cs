@@ -61,7 +61,6 @@ namespace fq540TenK.Controllers
                     {
                         if (userEmail.ToString() == approvedUsers[x])
                         {
-                            
                             return RedirectToAction("Index", "Home");
                         }
                     }

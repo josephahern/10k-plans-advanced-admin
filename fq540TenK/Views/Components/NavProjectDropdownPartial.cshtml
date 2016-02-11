@@ -1,25 +1,25 @@
 ﻿@model List<fq540TenK.Models.Project>
-        <li>
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Select Project/Phase <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                @foreach (var project in Model)
-                {
-                    if (!project.children.empty)
-                    {
-                        <li class="dropdown-submenu">
-                            <a href="@Url.Content("~/project/")@project.id/" class="dropdown-toggle" data-toggle="dropdown">@project.name</a>
-                            <ul class="dropdown-menu">
-                            @foreach (var phase in project.children.data)
-                            {
-                                <li><a href="@Url.Content("~/project/")@project.id/phase/@phase.id/">@phase.phase_name</a></li>
-                            }
-                            </ul>
-                        </li>
-                    }
-                    else
-                    {
-                        <li><a href="@Url.Content("~/project/")@project.id/">@project.name</a></li>
-                    }
-                }
-            </ul>
-        </li>
+<li>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Select Project/Phase <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+        @foreach (var project in Model)
+        {
+            if (!project.children.empty)
+            {
+                <li class="dropdown-submenu">
+                    <a href="@Url.Content("~/project/")@project.id/" class="dropdown-toggle" data-toggle="dropdown">@project.name</a>
+                    <ul class="dropdown-menu">
+                        @foreach (var phase in project.children.data)
+                        {
+                            <li><a href="@Url.Content("~/project/")@project.id/phase/@phase.id/">@phase.phase_name</a></li>
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li><a href="@Url.Content("~/project/")@project.id/">@project.name</a></li>
+            }
+        }
+    </ul>
+</li>

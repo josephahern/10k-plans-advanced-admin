@@ -2,6 +2,12 @@ body {
 	margin-top: 50px;
 }
 
+.dropdown-menu{
+    max-height: 250px;
+    overflow:auto;
+
+}
+
 .dropdown-submenu {
     position: relative;
 }

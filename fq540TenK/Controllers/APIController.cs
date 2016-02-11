@@ -83,10 +83,10 @@ namespace fq540TenK
             request.AddParameter("assignable_id", assignable_id);
             request.AddParameter("allocation_mode", allocation_mode);
             if (allocation_mode == "fixed") { request.AddParameter("fixed_hours", allocation_amount); }
-            else if (allocation_mode == "percent") { request.AddParameter("percent", allocation_amount); }
+            else if (allocation_mode == "percent") { request.AddParameter("percent", (decimal.Parse(allocation_amount)/100).ToString()); }
             else { request.AddParameter("hours_per_day", allocation_amount); }
-            request.AddParameter("starts_at", start_time);
-            request.AddParameter("ends_at", end_time);
+            request.AddParameter("starts_at", start_time.ToString("yyyy-MM-dd"));
+            request.AddParameter("ends_at", end_time.ToString("yyyy-MM-dd"));
             client.Execute(request);
         }
 
@@ -100,16 +100,16 @@ namespace fq540TenK
             {
                 request.AddParameter("allocation_mode", allocation_mode);
                 if (allocation_mode == "fixed") { request.AddParameter("fixed_hours", allocation_amount); }
-                else if (allocation_mode == "percent") { request.AddParameter("percent", allocation_amount); }
+                else if (allocation_mode == "percent") { request.AddParameter("percent", (decimal.Parse(allocation_amount) / 100)); }
                 else { request.AddParameter("hours_per_day", allocation_amount); }
             }
             if (start_time != null)
             {
-                request.AddParameter("starts_at", start_time);
+                request.AddParameter("starts_at", start_time.ToString("yyyy-MM-dd"));
             }
             if (end_time != null)
             {
-                request.AddParameter("ends_at", end_time);
+                request.AddParameter("ends_at", end_time.ToString("yyyy-MM-dd"));
             }
 
             client.Execute(request);

@@ -10,6 +10,9 @@
         $(".alertMessage").fadeIn("slow", function () { $(this).delay(4000).fadeOut("slow"); });
     }
 
+    // Initialize Table Search
+    $('#project-list').filterTable();
+
     // Project Index page, table sorting initialization
     $("#project-list").tablesorter();
     
@@ -83,15 +86,44 @@
         var assignments = new Array();
 
         $("ul.add-assignment-modal-list li").each(function (index) {
-            var userId = $(this).attr('data-userid');
-            var assignmentId = $(this).attr('data-id');
+            var userId = $(this).attr('data-user-id');
             users.push(userId);
-            assignments.push(assignmentId);
         });
 
         $("#batch-add-modal input[name='users']").val(users.join(','));
-        $("#batch-add-modal input[name='assignments']").val(assignments.join(','));
     }
+
+    $(".align_start, .align_end").click(function (e) {
+        var modalType = $(this).attr("id");
+        var alignType = $(this).attr("class");
+        var startTime = $(".parent-start-time").attr("data-time");
+        var endTime = $(".parent-end-time").attr("data-time");
+
+        if (modalType == "add-modal") {
+            if (alignType == "align_start"){
+                $("input.add-start-time").val(startTime);
+            } else {
+                $("input.add-end-time").val(endTime);
+            }
+        } else {
+            if (alignType == "align_start") {
+                $("input.edit-start-time").val(startTime);
+            } else {
+                $("input.edit-end-time").val(endTime);
+            }
+        }
+        e.preventDefault();
+    });
+
+    $('.add_allocation_input, .edit_allocation_input').on('input', function () {
+        var modalType = $(this).attr("class");
+        if (modalType == "add_allocation_input") {
+            $('input#add_allocation_amount').val($(this).val());
+        } else {
+            $('input#edit_allocation_amount').val($(this).val());
+        }
+        
+    }).trigger('input');
 
     //
     // Edit Assignments
@@ -218,4 +250,19 @@
     $("#add-user-trigger").click(function () {
         $('#batch-add-modal').modal('show');
     });
+
+    // Delete Assignment Button
+    $(function () {
+        $(".delete-resource-x").hover(function () {
+            $(".delete-resource-x").click(function () {
+                $(this).css("background-color", "blue");
+            });
+        }, function () {
+            // change to any color that was previously used.
+            $(".delete-resource-x").css('background-color', 'white');
+        });
+    });
+    
+
+
 });
