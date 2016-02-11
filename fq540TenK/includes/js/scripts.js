@@ -267,12 +267,14 @@
             $(".delete-resource-x[data-assignment-id=" + assignmentId + "]").flip(false);
             $(".delete-resource-x[data-assignment-id=" + assignmentId + "] .back").css({ "background-color": "orange", "color": "white" });
         }, 2000);
+        setTimeout(function () {
+            $(".delete-resource-x[data-assignment-id=" + assignmentId + "] .back a").html('<span class="glyphicon glyphicon-question-sign"></span>');
+        }, 2100);
     })
 
     $(".delete-resource-x .back").click(function () {
-        $(this).parent('.back').css({ "background-color": "green", "color": "white" });
         $(this).css({ "background-color": "green", "color": "white" });
-        $(this).html('<span class="glyphicon glyphicon-ok"></span></a>');
+        $('a', this).html('<span class="glyphicon glyphicon-ok"></span>');
     })
 
     
