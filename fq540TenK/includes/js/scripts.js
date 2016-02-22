@@ -280,6 +280,5 @@
     $("#add-phase-trigger").click(function () {
         $('#add-phase-modal').modal();
     })
-    
 
 });

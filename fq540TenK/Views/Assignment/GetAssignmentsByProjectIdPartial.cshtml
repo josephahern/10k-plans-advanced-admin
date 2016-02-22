@@ -25,7 +25,7 @@ else {
                    
                         if (!assignee.assignments.empty)
                         {
-                            <table class="table table-bordered table-condensed">
+                            <table class="table table-bordered table-condensed editabletable">
                                 <tr>
                                     <td rowspan="1" style="border-left: 1px solid white; border-top:1px solid white;"></td>
                                     <th>ID</th>
@@ -63,18 +63,36 @@ else {
                                             <td>@assignment.id</td>
                                             @if (assignment.allocation_mode == "fixed")
                                             {
-                                                <td>Fixed</td>
-                                                <td>@assignment.fixed_hours hrs</td>
+                                                <td>
+                                                    <select>
+                                                        <option value="fixed" selected>Fixed</option>
+                                                        <option value="percent">Percent</option>
+                                                        <option value="hours_per_day">Hours Per Day</option>
+                                                    </select>
+                                                </td>
+                                                <td><input type="text" name="fixed_input" value="@assignment.fixed_hours" size="3" /> hrs</td>
                                             }
-                                            else if (assignment.allocation_mode == "percent")
+                                            else if (assignment.allocation_mode == "percent") 
                                             {
-                                                <td>Percent</td>
-                                                <td>@(assignment.percent * 100)%</td>
+                                                <td>
+                                                    <select>
+                                                        <option value="fixed">Fixed</option>
+                                                        <option value="percent" selected>Percent</option>
+                                                        <option value="hours_per_day">Hours Per Day</option>
+                                                    </select>
+                                                </td>
+                                                <td><input type="text" name="percent_input" value="@(assignment.percent * 100)" size="3"/> %</td>
                                             }
                                             else
                                             {
-                                                <td>Hours Per Day</td>
-                                                <td>@assignment.hours_per_day hrs/day</td>
+                                                <td>
+                                                    <select>
+                                                        <option value="fixed">Fixed</option>
+                                                        <option value="percent">Percent</option>
+                                                        <option value="hours_per_day" selected>Hours Per Day</option>
+                                                    </select>
+                                                </td>
+                                                <td><input type="text" name="fixed_input" value="@assignment.hours_per_day" size="3"/> hrs/day</td>
                                             }
                                             <td>@assignment.starts_at.Date.ToString("MMMM dd, yyyy")</td>
                                             <td>@assignment.ends_at.Date.AddDays(-1).ToString("MMMM dd, yyyy")</td>

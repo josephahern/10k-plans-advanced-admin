@@ -275,6 +275,8 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="includes\css\bootstrap-datepicker.min.css" />
+    <Content Include="includes\css\jsgrid-theme.min.css" />
+    <Content Include="includes\css\jsgrid.min.css" />
     <Content Include="includes\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
@@ -295,6 +297,7 @@
     <Content Include="includes\js\jquery.filtertable.min.js" />
     <Content Include="includes\js\jquery.flip.min.js" />
     <Content Include="includes\js\jquery.hideseek.min.js" />
+    <Content Include="includes\js\jsgrid.min.js" />
     <Content Include="includes\js\scripts.js" />
     <Content Include="includes\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="includes\js\jquery.tablesorter.min.js" />
