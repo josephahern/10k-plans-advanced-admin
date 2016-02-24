@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using fq540TenK.Models;
+using Newtonsoft.Json;
+using fq540TenK.ActionFilters;
 
 namespace fq540TenK.Controllers
 {
@@ -81,18 +83,22 @@ namespace fq540TenK.Controllers
 
         }
 
-        [ChildActionOnly]
+        [HttpPost]
+        public ActionResult InPageEdit(InPageEditForm data)
+        {
+            foreach (var assignment in data.assignments)
+            {
+                APIController.EditAssignmentsInPage(assignment.user_id, assignment.assignment_id, assignment.allocation_mode, assignment.allocation_amount, assignment.start_time, assignment.end_time);
+            }
+
+            return Json(new { success = true });
+
+        }
+
+        [HttpGet]
         public ActionResult AddAssignmentPartial(int projectId, int phaseId = 0)
         {
             List<User> users = APIController.GetAllUsers();
-            ViewBag.projectId = projectId;
-            ViewBag.phaseId = phaseId;
-            return PartialView(users);
-        }
-
-        [ChildActionOnly]
-        public ActionResult AddAssignmentFormModalPartial(int projectId, int phaseId = 0)
-        {
             ViewBag.projectId = projectId;
             ViewBag.phaseId = phaseId;
             if (phaseId == 0)
@@ -103,7 +109,7 @@ namespace fq540TenK.Controllers
             {
                 ViewBag.assignableId = phaseId;
             }
-            return PartialView();
+            return PartialView(users);
         }
 
         public ActionResult GetAssignmentsByProjectIdPartial(int projectId, int phaseId = 0)
@@ -118,26 +124,14 @@ namespace fq540TenK.Controllers
             {
                 assignableId = phaseId;
             }
+
             List<ProjectAssignee> assignees = APIController.GetAssignmentsByProjectId(assignableId);
+
             ViewBag.projectId = projectId;
             ViewBag.phaseId = phaseId;
             ViewBag.assignableId = assignableId;
-            return PartialView(assignees);
-        }
 
-        public ActionResult GetAssignmentsFormModalPartial(int projectId, int phaseId = 0)
-        {
-            ViewBag.projectId = projectId;
-            ViewBag.phaseId = phaseId;
-            if (phaseId == 0)
-            {
-                ViewBag.assignableId = projectId;
-            }
-            else
-            {
-                ViewBag.assignableId = phaseId;
-            }
-            return PartialView();
+            return PartialView(assignees);
         }
 
         public ActionResult DeleteAssignment(DeleteAssignmentForm data) {

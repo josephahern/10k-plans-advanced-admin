@@ -120,6 +120,31 @@ namespace fq540TenK
             client.Execute(request);
         }
 
+        public static void EditAssignmentsInPage(int user_id, int assignment_id, string allocation_mode, string allocation_amount, string start_time, string end_time)
+        {
+            var client = new RestClient(baseUrl);
+            var request = new RestRequest("users/" + user_id.ToString() + "/assignments/" + assignment_id.ToString(), Method.PUT);
+            request.AddParameter("auth", authToken);
+
+            if (!string.IsNullOrEmpty(allocation_mode) && !string.IsNullOrEmpty(allocation_amount))
+            {
+                request.AddParameter("allocation_mode", allocation_mode);
+                if (allocation_mode == "fixed") { request.AddParameter("fixed_hours", allocation_amount); }
+                else if (allocation_mode == "percent") { request.AddParameter("percent", (decimal.Parse(allocation_amount) / 100)); }
+                else { request.AddParameter("hours_per_day", allocation_amount); }
+            }
+            if (start_time != null)
+            {
+                request.AddParameter("starts_at", start_time);
+            }
+            if (end_time != null)
+            {
+                request.AddParameter("ends_at", end_time);
+            }
+
+            client.Execute(request);
+        }
+
         public static void DeleteAssignment (int assignment_id, int user_id)
         {
             var client = new RestClient(baseUrl);

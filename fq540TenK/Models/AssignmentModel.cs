@@ -70,6 +70,23 @@ namespace fq540TenK.Models
         public DateTime end_time { get; set; }
     }
 
+    public class InPageEditForm
+    {
+        public List<InPageEditFormElements> assignments { get; set; }
+        public int project_id { get; set; }
+        public int phase_id { get; set; }
+    }
+
+    public class InPageEditFormElements
+    {
+        public int user_id { get; set; }
+        public int assignment_id { get; set; }
+        public string allocation_mode { get; set; }
+        public string allocation_amount { get; set; }
+        public string start_time { get; set; }
+        public string end_time { get; set; }
+    }
+
     public class DeleteAssignmentForm
     {
         public int user_id { get; set; }

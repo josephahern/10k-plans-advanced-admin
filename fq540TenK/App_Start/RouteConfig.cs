@@ -26,7 +26,18 @@ namespace fq540TenK
                 defaults: new { controller = "Project", action = "Details", projectID = " "},
                 constraints: new { projectID = @"\d+" }
             );
-
+            routes.MapRoute(
+                name: "Add Assignment Partial View",
+                url: "Assignment/AddAssignmentPartial/{projectId}/{phaseId}",
+                defaults: new { controller = "Assignment", action = "AddAssignmentPartial", projectId = " ", phaseId = " "},
+                constraints: new { projectId = @"\d+", phaseId = @"\d+" }
+            );
+            routes.MapRoute(
+                name: "Get Assignment By Project Id Partial View",
+                url: "Assignment/GetAssignmentsByProjectIdPartial/{projectId}/{phaseId}",
+                defaults: new { controller = "Assignment", action = "GetAssignmentsByProjectIdPartial", projectId = " ", phaseId = " " },
+                constraints: new { projectId = @"\d+", phaseId = @"\d+" }
+            );
             //-- Default Route
             routes.MapRoute(
                 name: "Default",

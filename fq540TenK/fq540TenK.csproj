@@ -288,6 +288,7 @@
     <Content Include="includes\css\bootstrap.min.css" />
     <Content Include="includes\css\style.css" />
     <Content Include="includes\img\FQ540_logo.png" />
+    <Content Include="includes\img\gears.gif" />
     <Content Include="includes\img\table-asc.gif" />
     <Content Include="includes\img\table-header.gif" />
     <Content Include="includes\img\table-desc.gif" />
@@ -339,12 +340,6 @@
     <Content Include="Views\Components\NavProjectDropdownPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Assignment\AddAssignmentFormModalPartial.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Assignment\GetAssignmentsFormModalPartial.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -358,6 +353,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\FQ540 FTP.pubxml" />
     <None Include="Properties\PublishProfiles\fq540-tenk-app.pubxml" />
     <Content Include="Views\Phase\AddPhasePartial.cshtml" />
   </ItemGroup>

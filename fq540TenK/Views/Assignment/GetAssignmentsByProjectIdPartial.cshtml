@@ -1,124 +1,205 @@
 ﻿@using System.Linq
 @model List<fq540TenK.Models.ProjectAssignee>
-
-<hr />
+<div class="editAssignmentPartialContent">
 @if (!Model.Any())
 {
-    <div class="row">
+    <div class="row row-content">
+        <hr />
         <div class="col-md-12">
             <h4>There are no resources currently assigned to this project/phase.</h4>
             <p>Consider using the "Batch Assign Resources" tool below to add one or many resources (users) to this project/phase.</p>
         </div>
     </div>
 }
-else {
-    <div class="row">
+else
+{
+    <div class="row row-content">
+        <hr />
         <div class="col-md-12">
-            <h4>Currently Assigned:</h4>
-                <span>Batch Edit: <button class="btn btn-disabled batchEditButton" data-toggle="modal" data-target="#batch-edit-modal" disabled>None Selected</button> | <a href="#" class="selectAllAssigned">Select All</a> / <a href="#" class="selectNoneAssigned">Select None</a></span>
-                    @foreach (var assignee in Model)
-                    {
-                        <h5><b>@assignee.display_name</b> | 
-                        @if (assignee.discipline != null) {@assignee.discipline} 
-                        @if (assignee.role != null) {@assignee.role} 
-                        User ID: @assignee.id</h5>
-                   
-                        if (!assignee.assignments.empty)
-                        {
-                            <table class="table table-bordered table-condensed editabletable">
-                                <tr>
-                                    <td rowspan="1" style="border-left: 1px solid white; border-top:1px solid white;"></td>
-                                    <th>ID</th>
-                                    <th>Mode/Type</th>
-                                    <th>Amount</th>
-                                    <th>Start</th>
-                                    <th>End</th>
-                                    <td rowspan="1" style="border-right:1px solid white; border-top: 1px solid white;"></td>
-                                </tr>
-                                @foreach (var assignment in assignee.assignments.data)
-                                {
-                            if (assignment.assignable_id == ViewBag.assignableId)
-                            {
-                                        <tr>
-                                            <th scope="row" style="text-align: center;">
-                                                <input type="checkbox"
-                                                       class="currentlyAssigned"
-                                                       data-name="@assignee.display_name"
-                                                       data-id="@assignment.id"
-                                                       data-allocation-mode="@assignment.allocation_mode"
-                                                       data-hours-per-day="@assignment.hours_per_day"
-                                                       data-user-id="@assignment.user_id"
-                                                       data-assignable-id="@assignment.assignable_id"
-                                                       data-ends-at="@assignment.ends_at"
-                                                       data-start-at="@assignment.starts_at"
-                                                       data-bill-rate="@assignment.bill_rate"
-                                                       data-bill-rate-id="@assignment.bill_rate_id"
-                                                       data-repetition-id="@assignment.repetition_id"
-                                                       data-created-at="@assignment.created_at"
-                                                       data-updated-at="@assignment.updated_at"
-                                                       data-all-day-assignment="@assignment.all_day_assignment"
-                                                       data-fixed-hours="@assignment.fixed_hours"
-                                                       data-percent="@assignment.percent" />
-                                            </th>
-                                            <td>@assignment.id</td>
-                                            @if (assignment.allocation_mode == "fixed")
-                                            {
-                                                <td>
-                                                    <select>
-                                                        <option value="fixed" selected>Fixed</option>
-                                                        <option value="percent">Percent</option>
-                                                        <option value="hours_per_day">Hours Per Day</option>
-                                                    </select>
-                                                </td>
-                                                <td><input type="text" name="fixed_input" value="@assignment.fixed_hours" size="3" /> hrs</td>
-                                            }
-                                            else if (assignment.allocation_mode == "percent") 
-                                            {
-                                                <td>
-                                                    <select>
-                                                        <option value="fixed">Fixed</option>
-                                                        <option value="percent" selected>Percent</option>
-                                                        <option value="hours_per_day">Hours Per Day</option>
-                                                    </select>
-                                                </td>
-                                                <td><input type="text" name="percent_input" value="@(assignment.percent * 100)" size="3"/> %</td>
-                                            }
-                                            else
-                                            {
-                                                <td>
-                                                    <select>
-                                                        <option value="fixed">Fixed</option>
-                                                        <option value="percent">Percent</option>
-                                                        <option value="hours_per_day" selected>Hours Per Day</option>
-                                                    </select>
-                                                </td>
-                                                <td><input type="text" name="fixed_input" value="@assignment.hours_per_day" size="3"/> hrs/day</td>
-                                            }
-                                            <td>@assignment.starts_at.Date.ToString("MMMM dd, yyyy")</td>
-                                            <td>@assignment.ends_at.Date.AddDays(-1).ToString("MMMM dd, yyyy")</td>
-                                            @using (Html.BeginForm("DeleteAssignment", "Assignment", FormMethod.Post, new { id = "delete-"+assignment.id}))
-                                            {
-                                                <input type="hidden" name="assignment_id" value="@assignment.id">
-                                                <input type="hidden" name="user_id" value="@assignee.id">
-                                                <input type="hidden" name="project_id" value="@ViewBag.projectId">
-                                                <input type="hidden" name="phase_id" value="@ViewBag.phaseId">
-                                                <td class="delete-resource">
-                                                    <div class="delete-resource-x" data-assignment-id="@assignment.id">
-                                                        <div class="front"><span class="glyphicon glyphicon-remove"></span></div>
-                                                        <div class="back"><a href="javascript:document.getElementById('delete-@assignment.id').submit()"><span class="glyphicon glyphicon-question-sign"></span></a></div>
-                                                    </div>
-                                                </td>
-                                            }
-                                        </tr>
-                                    }
-                                }
-                            </table>
-
-                        }
-
-                    }
+                <h4>Currently Assigned:</h4>
                     <span>Batch Edit: <button class="btn btn-disabled batchEditButton" data-toggle="modal" data-target="#batch-edit-modal" disabled>None Selected</button> | <a href="#" class="selectAllAssigned">Select All</a> / <a href="#" class="selectNoneAssigned">Select None</a></span>
+                    <span style="float: right;"><button class="btn btn-disabled saveChangesButton" type="submit" disabled>No Changes</button></span>
+                        @foreach (var assignee in Model)
+                        {
+                            <div class="tableContentContainer">
+                            <h5><b>@assignee.display_name</b> | 
+                            @if (assignee.discipline != null)
+                            {@assignee.discipline} 
+                            @if (assignee.role != null)
+                            {@assignee.role} 
+                            User ID: @assignee.id</h5>
+
+                                <table class="table table-bordered table-condensed editabletable">
+                                    <thead>
+                                        <tr>
+                                            <td rowspan="1" style="border-left: 1px solid white; border-top:1px solid white;"></td>
+                                            <th>ID</th>
+                                            <th>Mode/Type</th>
+                                            <th>Amount</th>
+                                            <th>Start</th>
+                                            <th>End</th>
+                                            <td rowspan="1" style="border-right:1px solid white; border-top: 1px solid white;"></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var assignment in assignee.assignments.data)
+                                        {
+                                            if (assignment.assignable_id == ViewBag.assignableId)
+                                            {
+                                                <tr>
+                                                <th scope="row" class="rowinfo" style="text-align: center;">
+                                                    <input type="checkbox"
+                                                           class="currentlyAssigned"
+                                                           data-name="@assignee.display_name"
+                                                           data-id="@assignment.id"
+                                                           data-allocation-mode="@assignment.allocation_mode"
+                                                           data-hours-per-day="@assignment.hours_per_day"
+                                                           data-user-id="@assignment.user_id"
+                                                           data-assignable-id="@assignment.assignable_id"
+                                                           data-ends-at="@assignment.ends_at"
+                                                           data-start-at="@assignment.starts_at"
+                                                           data-bill-rate="@assignment.bill_rate"
+                                                           data-bill-rate-id="@assignment.bill_rate_id"
+                                                           data-repetition-id="@assignment.repetition_id"
+                                                           data-created-at="@assignment.created_at"
+                                                           data-updated-at="@assignment.updated_at"
+                                                           data-all-day-assignment="@assignment.all_day_assignment"
+                                                           data-fixed-hours="@assignment.fixed_hours"
+                                                           data-percent="@assignment.percent" />
+                                                </th>
+                                                <td class="assignmentId">@assignment.id</td>
+                                                @if (assignment.allocation_mode == "fixed")
+                                                {
+                                                    <td class="allocationMode">
+                                                        <select data-default-value="@assignment.allocation_mode" data-current-selection="@assignment.allocation_mode">
+                                                            <option value="fixed" selected>Fixed</option>
+                                                            <option value="percent">Percent</option>
+                                                            <option value="hours_per_day">Hours Per Day</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="allocationInputAmount"><input type="text" name="fixed_input" data-default-value="@assignment.fixed_hours" value="@assignment.fixed_hours" size="3" /> hrs</td>
+                                                }
+                                                else if (assignment.allocation_mode == "percent")
+                                                {
+                                                    <td class="allocationMode">
+                                                        <select data-default-value="@assignment.allocation_mode" data-current-selection="@assignment.allocation_mode">
+                                                            <option value="fixed">Fixed</option>
+                                                            <option value="percent" selected>Percent</option>
+                                                            <option value="hours_per_day">Hours Per Day</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="allocationInputAmount"><input type="text" name="percent_input" data-default-value="@(assignment.percent * 100)" value="@(assignment.percent * 100)" size="3" /> %</td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="allocationMode">
+                                                        <select data-default-value="@assignment.allocation_mode" data-current-selection="@assignment.allocation_mode">
+                                                            <option value="fixed">Fixed</option>
+                                                            <option value="percent">Percent</option>
+                                                            <option value="hours_per_day" selected>Hours Per Day</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="allocationInputAmount"><input type="text" name="fixed_input" data-default-value="@assignment.hours_per_day" value="@assignment.hours_per_day" size="3" /> hrs/day</td>
+                                                }
+                                                <td class="startDate">@assignment.starts_at.Date.ToString("MMMM dd, yyyy")</td>
+                                                <td class="endDate">@assignment.ends_at.Date.AddDays(-1).ToString("MMMM dd, yyyy")</td>
+                                                @using (Html.BeginForm("DeleteAssignment", "Assignment", FormMethod.Post, new { id = "delete-" + assignment.id }))
+                                                {
+                                                    <input type="hidden" name="assignment_id" value="@assignment.id">
+                                                    <input type="hidden" name="user_id" value="@assignee.id">
+                                                    <input type="hidden" name="project_id" value="@ViewBag.projectId">
+                                                    <input type="hidden" name="phase_id" value="@ViewBag.phaseId">
+                                                    <td class="delete-resource">
+                                                        <div class="delete-resource-x" data-assignment-id="@assignment.id">
+                                                            <div class="front"><span class="glyphicon glyphicon-remove"></span></div>
+                                                            <div class="back"><a href="#"><span class="glyphicon glyphicon-question-sign"></span></a></div>
+                                                        </div>
+                                                    </td>
+                                                }
+                                            </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    <span>Batch Edit: <button class="btn btn-disabled batchEditButton" data-toggle="modal" data-target="#batch-edit-modal" disabled>None Selected</button> | <a href="#" class="selectAllAssigned">Select All</a> / <a href="#" class="selectNoneAssigned">Select None</a></span>
+                    <span style="float: right;"><button class="btn btn-disabled saveChangesButton" type="submit" disabled>No Changes</button></span>
                 </div>
-            </div>
-            Html.RenderAction("GetAssignmentsFormModalPartial", "Assignment", new { projectId = ViewBag.projectId, phaseId = ViewBag.phaseId });
+    </div>
+    <!-- Batch Edit Modal -->
+    using (Html.BeginForm("Edit", "Assignment", FormMethod.Post, new { id = "editAssignmentForm"}))
+    {
+        <div class="modal fade" id="batch-edit-modal" tabindex="-1" role="dialog" aria-labelledby="batch-edit-modal-label">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="batch-edit-modal-label">Batch Edit Project/Phase Resources</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>Resources To Be Edited: </h5>
+                                        <input type="hidden" name="project_id" value="@ViewBag.projectId" />
+                                        <input type="hidden" name="phase_id" value="@ViewBag.phaseId" />
+                                        <ul class="edit-assignment-modal-list"></ul>
+                                        <hr />
+                                        <input type="hidden" name="users" value="none" />
+                                        <input type="hidden" name="assignments" value="none" />
+                                        <h5><b>Allocation Type & Amount:</b></h5>
+                                    </div>
+
+                                    <div id="allocationModeSelect">
+                                        <div class="col-md-4">
+                                            <label>
+                                                <input type="radio" name="allocation_mode" value="percent" id="edit-percent" />
+                                                Percent
+                                            </label>
+                                            <input type="text" name="edit-amount-percent" class="edit_allocation_input" id="edit-amount-percent" size="2" disabled> %
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>
+                                                <input type="radio" name="allocation_mode" value="hours_per_day" id="edit-hours-per-day" />
+                                                Daily
+                                            </label>
+                                            <input type="text" name="edit-amount-hours-per-day" class="edit_allocation_input" id="edit-amount-hours-per-day" size="2" disabled> hrs
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>
+                                                <input type="radio" name="allocation_mode" value="fixed" id="edit-fixed" />
+                                                Total
+                                            </label>
+                                            <input type="text" name="edit-amount-fixed" class="edit_allocation_input" id="edit-amount-fixed" size="2" disabled> hrs
+                                        </div>
+                                        <input type="hidden" name="allocation_amount" id="edit_allocation_amount" value="none" />
+                                    </div>
+                                    <div class="col-md-6" style="margin-top:15px;">
+                                        <label for="start_time">Start Time</label>
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control edit-start-time" name="start_time">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                        </div>
+                                        <h5><a href="#" class="align_start" id="edit-modal">[Align Start]</a></h5>
+                                    </div>
+                                    <div class="col-md-6" style="margin-top:15px;">
+                                        <label for="end_time">End Time</label>
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control edit-end-time" name="end_time">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                        </div>
+                                        <h5><a href="#" class="align_end" id="edit-modal">[Align End]</a></h5>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" id="edit-commit-submit" class="btn btn-primary">Commit Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    }
 }
+</div>

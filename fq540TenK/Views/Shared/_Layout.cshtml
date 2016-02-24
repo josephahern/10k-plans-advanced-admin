@@ -28,8 +28,10 @@
     </div>
     <div class="container" style="padding-top:20px;">
         @RenderBody()
-        <hr />
-        <p style="text-align: center;">&copy; @DateTime.Now.Year - Frequency540</p>
+        <div class="row">
+            <hr />
+            <p style="text-align: center;">&copy; @DateTime.Now.Year - Frequency540</p>
+        </div>
     </div><!-- /.container -->
     <div class="alertMessage"></div>
     @Scripts.Render("~/bundles/js")

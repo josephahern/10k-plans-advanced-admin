@@ -93,7 +93,7 @@
         $("#batch-add-modal input[name='users']").val(users.join(','));
     }
 
-    $(".align_start, .align_end").click(function (e) {
+    $(".container").on('click', '.align_start, .align_end',(function (e) {
         var modalType = $(this).attr("id");
         var alignType = $(this).attr("class");
         var startTime = $(".parent-start-time").attr("data-time");
@@ -113,7 +113,7 @@
             }
         }
         e.preventDefault();
-    });
+    }));
 
     $('.add_allocation_input, .edit_allocation_input').on('input', function () {
         var modalType = $(this).attr("class");
@@ -129,7 +129,7 @@
     // Edit Assignments
     //
 
-    $(".selectAllAssigned").click(function (e) {
+    $(".container").on('click', '.selectAllAssigned', (function (e) {
         $('input:checkbox.currentlyAssigned').prop('checked', true);
         $('.edit-assignment-modal-list').empty();
         $('input[type=checkbox]:checked').each(function () {
@@ -139,22 +139,22 @@
         });
         countAssignmentCheckbox();
         e.preventDefault();
-    });
+    }));
 
-    $(".selectNoneAssigned").click(function (e) {
+    $(".container").on('click', '.selectNoneAssigned',(function (e) {
         $('input:checkbox.currentlyAssigned').prop('checked', false);
         $('.edit-assignment-modal-list').empty();
         countAssignmentCheckbox();
         e.preventDefault();
-    });
+    }));
 
-    $("input:checkbox.currentlyAssigned").click(function (e) {
+    $(".container").on('click', 'input:checkbox.currentlyAssigned',(function (e) {
         var assignmentID = $(this).attr("data-id");
         var data = $(this).data();
         toggleToEditAssignmentList(assignmentID, data);
         countAssignmentCheckbox();
         
-    });
+    }));
 
     // When a checkbox is selected besides a resource, this action runs
     function toggleToEditAssignmentList(assignmentId, data) {
@@ -260,7 +260,7 @@
         }
     );
 
-    $(".delete-resource-x .front").click(function () {
+    $(".container").on("click", ".delete-resource-x .front", (function () {
         var assignmentId = $(this).closest('.delete-resource-x').attr("data-assignment-id");
         $(".delete-resource-x[data-assignment-id=" + assignmentId + "]").flip(true);
         setTimeout(function () {
@@ -270,15 +270,281 @@
         setTimeout(function () {
             $(".delete-resource-x[data-assignment-id=" + assignmentId + "] .back a").html('<span class="glyphicon glyphicon-question-sign"></span>');
         }, 2100);
-    })
+    }))
 
-    $(".delete-resource-x .back").click(function () {
+    $(".container").on("click", ".delete-resource-x .back", (function () {
         $(this).css({ "background-color": "green", "color": "white" });
         $('a', this).html('<span class="glyphicon glyphicon-ok"></span>');
-    })
+        var form = $('#delete-' + $(this).closest(".delete-resource-x").attr("data-assignment-id"));
+        var data = form.serialize();
+        var content = $(this);
+        var rowCount = $(this).closest('tbody').children('tr').length;
+        console.log(rowCount);
 
-    $("#add-phase-trigger").click(function () {
+        $.ajax({
+            url: '/Assignment/DeleteAssignment/',
+            type: 'POST',
+            data: data,
+            error: function (xhr) {
+                alert('Error: ' + xhr.statusText);
+                }
+        });
+        setTimeout(function () {
+            if (rowCount > 1) {
+                content.closest('tr').remove();
+            } else {
+                content.closest('.tableContentContainer').remove();
+            }
+            
+        }, 1000);
+        event.preventDefault();
+    }))
+
+    $("#add-phase-trigger").on("click",(function () {
         $('#add-phase-modal').modal();
-    })
+    }))
+
+    // Detect Changes In Batch Edit View
+
+    var validateEditableTableCount = 0;
+
+    $(".container").on('change', '.editabletable select, .editabletable input',(function () {
+        if ($(this).val() == $(this).attr("data-default-value")) {
+            $(this).closest('td').css('background-color', 'white');
+            $(this).closest('td').removeClass('changed');
+            validateEditableTableCount--;
+            validateEditableTable();
+        } else {
+            if (!$(this).closest('td').hasClass('changed')) {
+                $(this).closest('td').css('background-color', 'orange');
+                $(this).closest('td').addClass('changed');
+                validateEditableTableCount++;
+                validateEditableTable();
+            }
+            
+        }
+    }));
+
+    function validateEditableTable() {
+        var button = $(".saveChangesButton");
+        if (validateEditableTableCount > 0) {
+            button.removeClass("btn-disabled").addClass("btn-warning");
+            button.html('Save Changes');
+            button.prop("disabled", false);
+        }
+        else {
+            button.removeClass("btn-warning").addClass("btn-disabled");
+            button.html('No Changes');
+            button.prop("disabled", true);
+        }
+    }
+
+    function getEditableTableValues() {
+        var data = {};
+        var assignments = [];
+        $(".editabletable tbody tr").each(function () {
+            item = {};
+            item['user_id'] = $(this).find(".rowinfo input").attr("data-user-id");
+            item['assignment_id'] = $(this).find(".assignmentId").html();
+            item['allocation_mode'] = $(this).find(".allocationMode select").val();
+            item['allocation_amount'] = $(this).find(".allocationInputAmount input").val();
+            item['start_date'] = convertDateFormat(Date.parse($(this).find(".startDate").html()));
+            item['end_date'] = convertDateFormat(Date.parse($(this).find(".endDate").html()));
+            assignments.push(item);
+        });
+        data.phase_id = $('#inPageEditForm input[name="data"]').attr("data-phase-id");
+        data.project_id = $('#inPageEditForm input[name="data"]').attr("data-project-id");
+        data.assignments = assignments;
+        console.log(data);
+        return data;
+    }
+
+    $(".container").on('change', '.allocationMode select', (function () {
+        var currentSelection = $(this).attr("data-current-selection");
+        var newSelection = $(this).val();
+
+        if (currentSelection == "fixed" && newSelection == "hours_per_day") {
+
+        }
+        if (currentSelection == "fixed" && newSelection == "percent") {
+
+        }
+        if (currentSelection == "hours_per_day" && newSelection == "percent") {
+
+        }
+        if (currentSelection == "hours_per_day" && newSelection == "fixed") {
+
+        }
+        if (currentSelection == "percent" && newSelection == "hours_per_day") {
+
+        }
+        if (currentSelection == "percent" && newSelection == "fixed") {
+
+        }
+
+    }));
+
+    $(".container").on('click', '.saveChangesButton', (function () {
+        var data = getEditableTableValues();
+        var projectId = $('input[name="project_id"]').val();
+        var phaseId = $('input[name="phase_id"]').val();
+
+        $('.editAssignmentPartialContent').html('<div class="row"><hr /></div><div class="row" style="background-color: #f4f4f4; height: 200px;"><img src="/includes/img/gears.gif" style="position: relative; top: 75px; left:50%;" ></div>');
+        $.ajax({
+            url: '/Assignment/InPageEdit',
+            type: 'POST',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            error: function (xhr) {
+                alert('Error: ' + xhr.statusText);
+            },
+            success: function (result) {
+                $('.editAssignmentPartialContent').load('/Assignment/GetAssignmentsByProjectIdPartial/' + projectId + '/' + phaseId + '/ .row-content', function () {
+                    $(".delete-resource-x").flip(
+                        {
+                            axis: 'x',
+                            trigger: 'manual',
+                            autoSize: false
+                        }
+                    );
+                });
+                validateEditableTableCount = 0;
+            }
+        });
+    }))
+
+    // Conversion Tools
+
+    function convertDateFormat(date) {
+        var d = new Date(date);
+        var year = d.getFullYear(), month = (d.getMonth() + 1), day = d.getDate();
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+        var properlyFormatted = "" + year + "-" + month + "-" + day;
+        return properlyFormatted;
+    }
+
+    function convertAllocationAmount(conversionType, originalAmount, startDate, endDate) {
+        
+        startDate = startDate || 0;
+        endDate = endDate || 0;
+
+        if (startDate != 0 && endDate != 0) {
+            var workingDays = workingDaysBetweenDates(Date(startDate), Date(endDate));
+        }
+
+        var result = 0;
+
+        switch (conversionType) {
+            case 'fixedToHD':
+                result = (originalAmount / workingDays);
+                break;
+            case 'fixedToPercent':
+                result = (originalAmount / (workingDays * 8));
+                break;
+            case 'HDToPercent':
+                result = ((originalAmount/8)*100);
+                break;
+            case 'HDToFixed':
+                result = (originalAmount * workingDays);
+                break;
+            case 'percentToHD':
+                result = ((originalAmount/100)*8);
+                break;
+            case 'percentToFixed':
+                result = ((originalAmount / 100) * (workingDays *8));
+                break;
+            default: result = 0;
+        }
+
+        return result;
+    }
+
+    function workingDaysBetweenDates(startDate, endDate) {
+  
+        // Validate input
+        if (endDate < startDate)
+            return 0;
+    
+        // Calculate days between dates
+        var millisecondsPerDay = 86400 * 1000; // Day in milliseconds
+        startDate.setHours(0,0,0,1);  // Start just after midnight
+        endDate.setHours(23,59,59,999);  // End just before midnight
+        var diff = endDate - startDate;  // Milliseconds between datetime objects    
+        var days = Math.ceil(diff / millisecondsPerDay);
+    
+        // Subtract two weekend days for every week in between
+        var weeks = Math.floor(days / 7);
+        days = days - (weeks * 2);
+
+        // Handle special cases
+        var startDay = startDate.getDay();
+        var endDay = endDate.getDay();
+    
+        // Remove weekend not previously removed.   
+        if (startDay - endDay > 1)         
+            days = days - 2;      
+    
+        // Remove start day if span starts on Sunday but ends before Saturday
+        if (startDay == 0 && endDay != 6)
+            days = days - 1  
+            
+        // Remove end day if span ends on Saturday but starts after Sunday
+        if (endDay == 6 && startDay != 0)
+            days = days - 1  
+    
+        return days;
+    }
+
+    // Partial Form Processing and Displaying
+
+    $("#addAssignmentForm").on('submit',(function (event) {
+        
+        var projectId = $('input[name="project_id"]').val();
+        var phaseId = $('input[name="phase_id"]').val();
+        var data = $(this).serialize();
+
+        $('#batch-add-modal').modal('toggle');
+        $('.editAssignmentPartialContent').html('<div class="row"><hr /></div><div class="row" style="background-color: #f4f4f4; height: 200px;"><img src="/includes/img/gears.gif" style="position: relative; top: 75px; left:50%;" ></div>');
+        $('.resource-bucket-list li').each(function () {
+            $(this).find('span').remove();
+            $(".resource-list").append("<li data-user-id=\"" + $(this).attr("data-user-id") + "\"><span class=\"glyphicon glyphicon-plus-sign\" aria-hidden=\"true\"></span> " + $(this).html() + "</li>");
+        });
+
+        $('.resource-bucket-list').empty();
+        $('.add-assignment-modal-list').empty();
+        $('#resource-search').val('');
+        $("#resource-search-bucket").toggleClass("hidden", true);
+        $('.resource-list li').each(function () {
+            if ($(this).css('display') !== 'none') {
+                $(this).css('display', 'none');
+            }
+        });
+
+
+        $.ajax({
+            url: '/Assignment/Add/',
+            type: 'POST',
+            data: data,
+            error: function (xhr) {
+                alert('Error: ' + xhr.statusText);
+            },
+            success: function (result) {
+                $('.editAssignmentPartialContent').load('/Assignment/GetAssignmentsByProjectIdPartial/' + projectId + '/' + phaseId + '/ .row-content', function () {
+                    $(".delete-resource-x").flip(
+                        {
+                            axis: 'x',
+                            trigger: 'manual',
+                            autoSize: false
+                        }
+                    );
+                });
+            }
+        });
+
+        event.preventDefault();
+        
+    }));
 
 });

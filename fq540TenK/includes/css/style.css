@@ -197,3 +197,25 @@ td.delete-resource {
 .back a{
     color: white;
 }
+
+.editabletable {
+    text-align: center;
+}
+.editabletable>tbody>tr>td, .editabletable>tbody>tr>th {
+    vertical-align: middle;
+}
+
+.editabletable>tbody>tr>td.delete-resource {
+    vertical-align: top;
+}
+
+.editabletable select {
+    width:100%;
+}
+
+.editabletable input {
+    line-height: 14px;
+    font-size: 14px;
+}
+
+
