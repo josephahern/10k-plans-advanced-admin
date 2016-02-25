@@ -1,7 +1,5 @@
 # 10K Feet Advanced Administration Panel #
 
-This README would normally document whatever steps are necessary to get your application up and running.
-
 ### What is it? ###
 
 * A web app designed to extend the features of http://10000ft.com 
